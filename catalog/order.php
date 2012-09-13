@@ -169,7 +169,7 @@ require_once '../db_con/db.php';
 		  </form>   
 		  <div class="form-actions">
 			<center>
-				  <form id="form1" name="form1" method="post" action="../order/mycart.php">
+				  <form id="form1" name="form1" method="post" action="../order/mcart.php">
 						<input type="hidden" name="pid" id="button" value="<?php echo $id; ?>" />			
 						<input type="submit" class="btn btn-large btn-primary" name="button" id="pid" value="Add to Order" />&nbsp;
 						<input name="button" type="button" id="button" value="Cancel" onClick="window.location.href='index.php'" class="btn btn-large btn-danger">					
