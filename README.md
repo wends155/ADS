@@ -1,4 +1,4 @@
-for JELLAI, MARI, and FLOR
+for JELAI, MARI, and FLOR
 ==========================
 
 Todo List
