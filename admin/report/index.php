@@ -1,8 +1,7 @@
 <?php 
-//if tama ang username ug pwd, execute ang baba nga code...if mali redirect to admin_login.php
 session_start();
 if (!isset($_SESSION["manager"])) {
-    header("location: ../login.php"); 
+    header("location: /ADS/index.php"); 
     exit();
 }
 // Connect to the MySQL database  
@@ -12,7 +11,7 @@ include "../config/connect_to_mysql.php";
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>ADSell</title>
+    <title>ADSell / Reports</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -34,10 +33,7 @@ include "../config/connect_to_mysql.php";
 	
 
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="img/favicon.ico">
-    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="/ADS/img/ico/adsell.png">
   </head>
 
 <body background="/ADS/img/grain.jpg" bgcolor="#333333"> 
@@ -54,46 +50,55 @@ include "../config/connect_to_mysql.php";
           <div class="nav-collapse">
            <ul class="nav">	
 			  <li><a class="brand" href="../index.php"><img src="/ADS/img/ADSELL_png.png" height="35" width="80"></a></li>
-			  <li><a href="../category/index.php"><img src="../img/catalog.png"> Catalog</a></li>
-			  <li><a href="../orders/index.php"><img src="../img/cart.png"> Orders</a></li>
-			  <li><a href="../user/index.php"><img src="../img/user.png"> Dealers</a></li>
-			  <li class="active"><a href="../report/index.php"><img src="../img/report.png"> Reports</a></li>
-			  <li><a href="../custom/view.php"><img src="../img/conf.png"> Configuration</a></li>
-			  <li><a href="#contact"><img src="../img/sms.png"> SMS</a></li>
+			  <li><a href="../category/index.php"><img src="../img/catalog.png"><b> Catalog</b></a></li>
+			  <li><a href="../orders/index.php"><img src="../img/cart.png"><b> Orders</b></a></li>
+			  <li><a href="../user/index.php"><img src="../img/user.png"><b> Dealers</b></a></li>
+			  <li class="active"><a href="../report/index.php"><img src="../img/report.png"><b> Reports</b></a></li>
+			  <!--<li><a href="../custom/view.php"><img src="../img/conf.png"> Configuration</a></li>-->
+			  <li><a href="#contact"><img src="../img/sms.png"><b> SMS</b></a></li>
            </ul>
-		   <p class="navbar-text pull-right">Howdy! <?php echo $_SESSION['manager']; ?>&nbsp;<a href="../logout.php">Sign Out</a></p>
+		   <p class="navbar-text pull-right"><b>Howdy! <?php echo $_SESSION['manager']; ?></b>&nbsp;<a href="../logout.php">Sign Out</a></p>
 		  </div><!--/.nav-collapse -->			
         </div>
       </div>
     </div>
 
     <div class="container-fluid">
-     
-        <div class="span3">
-		  <div class="well sidebar-nav">
-			<ul class="nav nav-list">
-			  <li class="nav-header"><h4>Search Product</h4></li>
-			    <br>
-				<label>Product  Name: </label>
-				<div class="controls">
-					<form class="form-search" action='search.php' method='GET'>        
-							<div class="input-prepend">
-								<input class="input-small" name='search' type="text" placeholder="Find Product">&nbsp;
-								<input type='submit' class="btn" name='submit' value='Go'>
-							</div>
-					</form>
+		<form class="form-search pull-right" action='../category/search.php' method='GET'>        
+				<div class="clearfix">
+					<input class="input-xlarge" name='search' type="text" placeholder="Find Product">&nbsp;
+					<input type='submit' class="btn btn-primary" name='submit' value='Search'>
 				</div>
-            </ul>
-          </div><!--/.well -->
+		</form><br><br>
+		<hr>
+      <div class="row-fluid">
+        <div class="span12">
+			<div class="tabbable tabs-left">
+				<ul class="nav nav-tabs">
+				  <li class="active"><a href="#lA" data-toggle="tab"><h3>Daily</h3></a></li>
+				  <li><a href="#lB" data-toggle="tab"><h3>Weekly</h3></a></li>
+				  <li><a href="#lC" data-toggle="tab"><h3>Monthly</h3></a></li>
+				  <li><a href="#lD" data-toggle="tab"><h3>Annual</h3></a></li>
+				</ul>
+				<div class="tab-content">
+				  <div class="tab-pane active" id="lA">
+					<p>I'm in Section A.</p>
+				  </div>
+				  <div class="tab-pane" id="lB">
+					<p>Howdy, I'm in Section B.</p>
+				  </div>
+				  <div class="tab-pane" id="lC">
+					<p>What up girl, this is Section C.</p>
+				  </div>
+				  <div class="tab-pane" id="lD">
+					<p>What up girl, this is Section C.</p>
+				  </div>
+				</div>
+			</div> <!-- /tabbable -->
         </div><!--/span3 end here!-->
-		
-
-	  
+	  </div>
       <!-- for category list and product list tab -->	  
 	    <div class="span9">
-	  
-         
-        
 		</div>
 		
 	</div>

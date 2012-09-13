@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION["manager"])) {
-    header("location: login.php"); 
+    header("location: ../login.php"); 
     exit();
 }
 $managerID = preg_replace('#[^0-9]#i', '', $_SESSION["id"]); 
@@ -45,10 +45,7 @@ if ($existCount == 0) { // evaluate the count
       }
     </style>
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="images/favicon.ico">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="/ADS/img/ico/adsell.png">
   </head>
 
    <body background="/ADS/img/grain.jpg" bgcolor="#333333">
@@ -65,14 +62,14 @@ if ($existCount == 0) { // evaluate the count
           <div class="nav-collapse">
             <ul class="nav">	
 			  <li class="active"><a class="brand" href="index.php"><img src="/ADS/img/ADSELL_png.png" height="35" width="80"></a></li>
-			  <li><a href="category/index.php"><img src="img/catalog.png"> Catalog</a></li>
-			  <li><a href="orders/index.php"><img src="img/cart.png"> Orders</a></li>
-			  <li><a href="user/index.php"><img src="img/user.png"> Dealers</a></li>
-			  <li><a href="report/index.php"><img src="img/report.png"> Reports</a></li>
-			  <li><a href="custom/view.php"><img src="img/conf.png"> Configuration</a></li>
-			  <li><a href="#contact"><img src="img/sms.png"> SMS</a></li>
+			  <li><a href="category/index.php"><img src="img/catalog.png"><b> Catalog</b></a></li>
+			  <li><a href="orders/index.php"><img src="img/cart.png"><b> Orders</b></a></li>
+			  <li><a href="user/index.php"><img src="img/user.png"><b> Dealers</b></a></li>
+			  <li><a href="report/index.php"><img src="img/report.png"><b> Reports</b></a></li>
+			  <!--<li><a href="custom/view.php"><img src="img/conf.png"> Configuration</a></li>-->
+			  <li><a href="#contact"><img src="img/sms.png"><b> SMS</a></b></li>
             </ul>
-			<p class="navbar-text pull-right">Howdy! <?php echo $_SESSION['manager']; ?>&nbsp;<a href="logout.php">Sign Out</a></p>
+			<p class="navbar-text pull-right"><b>Howdy! <?php echo $_SESSION['manager']; ?></b>&nbsp;<a href="logout.php">Sign Out</a></p>
 		  </div><!--/.nav-collapse -->			
         </div>
       </div>
@@ -84,21 +81,19 @@ if ($existCount == 0) { // evaluate the count
             <ul class="nav nav-list">
 			 <li class="nav-header"><h3>Find it here!</h3></li>
 			    <br>
-				<label>Dealer  Name: </label>
 				<div class="controls">
 					<form class="form-search" action='user/search.php' method='GET'>        
-							<div class="input-prepend">
-								<input class="input-small" name='search' type="text" placeholder="Find Dealer">
-								<input type='submit' class="btn" name='submit' value='Go'>
+							<div class="clearfix">
+								<input class="input-small" name='search' type="text" placeholder="Find Dealer...">
+								<input type='submit' class="btn btn-primary" name='submit' value='Go'>
 							</div>
 					</form>
 				</div>
-				<label>Product  Name: </label>
 				<div class="controls">
 					<form class="form-search" action='category/search.php' method='GET'>        
-							<div class="input-prepend">
-								<input class="input-small" name='search' type="text" placeholder="Find Product">
-								<input type='submit' class="btn" name='submit' value='Go'>
+							<div class="clearfix">
+								<input class="input-small" name='search' type="text" placeholder="Find Product...">
+								<input type='submit' class="btn btn-primary" name='submit' value='Go'>
 							</div>
 					</form>
 				</div>
@@ -164,13 +159,18 @@ if ($existCount == 0) { // evaluate the count
             <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
             <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
           </div><br>
+				  <div class="well">
 				  <h1>To our valued dealers...</h1><br>
+				  <blockquote>
 				  <p>ADSell is a direct selling service company which cater the number of dealers who sell products for their living and additional income as investors.</p>
 				  <p>
 				  ADSell primarily supervise and monitor our valued dealers respectively, the service center help the people to economize and treasure the importance of being a dealer.</p>
 				  <p>
 				  ADSell share the trust, love and respect through their valued dealers all over the country.
 				  </p>
+				  <small>ADSell Team<cite title="Source Title"></cite></small>
+				  </blockquote>
+				</div>
 		  </div><!--/row-->
 		
        

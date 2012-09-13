@@ -5,34 +5,12 @@
     exit();
 }
 include_once "../db_con/connect_to_mysql.php";
-$id = $_SESSION['id'];
-?>
-<?php 
-// whole list of viewing the category stored on the database
-/*$category_list = "";
-$sql = mysql_query("SELECT * FROM category ORDER BY cat_id DESC");
-$categoryCount = mysql_num_rows($sql); // count the output amount
-	if ($categoryCount > 0) {
-	while($row = mysql_fetch_array($sql)){ 
-		$cat_id = $row["cat_id"];
-		$category_name = $row["category_name"];
-		$details = $row["details"];		
-		$category_list .= 
-		'<table width="100%" border="0" cellspacing="0" cellpadding="6">
-			<tr>
-				<td width="83%" valign="top"><a href="index.php?cat_id=' . $cat_id . '">' . $category_name . '<br /></a></td>
-			</tr>
-		</table>';
-		}
-} else {
-echo "No categories yet.";
-}*/
 ?>	
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>ADSell</title>
+    <title>ADSell / Catalog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -44,19 +22,15 @@ echo "No categories yet.";
 
     <!-- Le styles -->
     <link href="/ADS/css/bootstrap.css" rel="stylesheet">
-
+	<link href="/ADS/css/docs.css" rel="stylesheet">
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/ADS/ico/favicon.ico">
-    <link rel="apple-touch-icon" href="/ADS/ico/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/ADS/ico/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/ADS/ico/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="/ADS/img/ico/adsell.png">
 	 <style type="text/css">
       body {
         padding-top: 70px;
         padding-bottom: 0px;
 		padding-left: 0px;
-		padding-right: 0px;
-		
+		padding-right: 0px;		
       }
       .sidebar-nav {
         padding: 30px 0;
@@ -80,15 +54,14 @@ echo "No categories yet.";
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </a>
-         
+          </a>        
           <div class="nav-collapse">
             <ul class="nav">
               <li>
                 <a class="brand" href="../user/index.php"><img src="../img/ADSELL_png.png" height="35" width="80"></a>
               </li>
-			  <li class="active"><a href="../catalog/index.php"><img src="../img/catalog.png"> Catalog</a></li>
-			  <li><a href="../order/index.php"><img src="../img/cart.png"> Orders</a></li>
+			  <li class="active"><a href="../catalog/index.php"><img src="../img/catalog.png"><b> Catalog</b></a></li>
+			  <li><a href="../order/index.php"><img src="../img/cart.png"><b> Orders</b></a></li>
             </ul>
 			<ul class="nav pull-right">
                   <li id="fat-menu" class="dropdown">
@@ -96,15 +69,17 @@ echo "No categories yet.";
                     <ul class="dropdown-menu">
 					  <li>					  
 					  <?php
+						$id = $_SESSION['id'];
 						echo "<a href='../user/profile.php'><img src='../user_image/$id.jpg' width='30px' height='30px'> View my profile page</a>";
 					  ?>
 					  </li>
-                      <li><a href="../user/profile.php"><i class="icon-cog"></i> Settings</a></li>
+                      <li class="divider"></li>
+                      <li class="nav-header">Other Menu</li>
+					  <li><a href="../user/profile.php"><i class="icon-cog"></i> Settings</a></li>
 					  <li><a href="../logout.php"><i class="icon-off"></i> Sign Out</a></li>
                     </ul>
                   </li>
             </ul>
-				<p class="navbar-text pull-right">Welcome! <?php echo $_SESSION['username']; ?>&nbsp;</p>
           </div>
         </div>
       </div>
@@ -114,26 +89,26 @@ echo "No categories yet.";
 
 <!-- Masthead
 ================================================== -->
- <p>
- </p>
-  <div class="container-fluid">
+  <div class="container">
+		<form class="form-search pull-right" action='search.php' method='GET'>        						
+			<input class="input-large search-query" name='search' type="text" placeholder="Search Product">
+			<input type='submit' class="btn btn-primary" name='submit' value='Search'>
+		</form>
     <div class="row-fluid">
-	 <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header"><h3>All Category</h3></li>				
+	 <div class="span4">
+            <ul class="nav nav-list bs-docs-sidenav">			
                <?php
 					try{
 						require_once "../db_con/config.php";
 						$stmt = $conn->query("select * from category");
 						$res = $stmt->fetchall(PDO::FETCH_ASSOC);						
 						foreach($res as $cat){
-						echo "<li><h3><br>" . $cat['category_name'] . "</h3></li><br>";
+						echo "<li><h3><br>&nbsp;&nbsp;&nbsp;&nbsp;" . $cat['category_name'] . "</h3></li><br>";
 						$subcat = "select * from subcategory where category_id=".$cat['cat_id'];
 						$sub = $conn->query($subcat);
 						$subres = $sub->fetchall(PDO::FETCH_ASSOC);									
 						foreach ($subres as $subcateg){
-							echo "<li><a href=product.php?id=" . $subcateg['id'] . ">&nbsp;&nbsp;".$subcateg['name'] . "</a></li>";
+							echo "<li><a href=product.php?id=" . $subcateg['sub_id'] . "><i class='icon-tag'></i>&nbsp;&nbsp;<i class='icon-chevron-right'></i>".$subcateg['name'] . "</a></li>";
 								}		
 							}									
 						} catch (Exception $e){
@@ -141,10 +116,10 @@ echo "No categories yet.";
 						}
 				?>
             </ul>
-		  </div>
-     </div><!--/.well -->
-	 <div class="span6">
-	  <div class="well">
+     </div><!--/.span -->
+	 <br><br>
+	 <div class="span8">
+		<div class="well">
 		  <h3>Purchase Order Form</h3>
 		  <form class="form-horizontal">	  
 				<?php 
@@ -175,62 +150,40 @@ echo "No categories yet.";
 			  <div class="control-group">
 				<label class="control-label">Product Name:</label>
 				<div class="controls">
-				  <span class="input-large uneditable-input" id="product_name"><?php echo $product_name; ?></span>
+				  <span class="input-xlarge uneditable-input" id="product_name"><?php echo $product_name; ?></span>
 				</div>
 			  </div>
 			  <div class="control-group">
 				<label class="control-label">(Php) Price:</label>
 				<div class="controls">
-				  <span class="input-large uneditable-input" id="price"><?php echo $price; ?></span>
-				</div>
-			  </div>
-			  <div class="control-group">
-				<label class="control-label">Brand Category:</label>
-				<div class="controls">
-				  <span class="input-large uneditable-input" id="price">
-					<?php 
-						$category;
-					?>
-				  </span>
+				  <span class="input-xlarge uneditable-input" id="price"><?php echo $price; ?></span>
 				</div>
 			  </div>
 			  <div class="control-group">
 				<label class="control-label" for="textarea">Details:</label>
 				<div class="controls">
-				  <textarea class="input-large uneditable-input" id="details" rows="9"><?php echo $details; ?></textarea>
+				  <textarea class="input-xlarge uneditable-input" id="details"><?php echo $details; ?></textarea>
 				</div>
 			  </div><br>
 		  </form>   
 		  <div class="form-actions">
 			<center>
 				  <form id="form1" name="form1" method="post" action="../order/cart.php">
-						<input type="hidden" name="pid" id="button" value="<?php echo $id; ?>" />				
-						<input type="submit" class="btn btn-primary" name="button" id="pid" value="Order" />&nbsp;
-						<input name="button" type="button" id="button" value="Cancel" onClick="window.location.href='index.php'" class="btn btn-danger">					
+						<input type="hidden" name="pid" id="button" value="<?php echo $id; ?>" />			
+						<input type="submit" class="btn btn-large btn-primary" name="button" id="pid" value="Add to Order" />&nbsp;
+						<input name="button" type="button" id="button" value="Cancel" onClick="window.location.href='index.php'" class="btn btn-large btn-danger">					
 				  </form>
 			</center>
 		  </div>
-	  </div>
+		</div>
 	 </div>
-	 <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header"><h3>Product Updates</h3></li>				
-               	
-            </ul>
-		  </div>
-     </div><!--/.well -->
-			<br>
-			<br>
-			
 	</div> <!-- /.row -->
    </div> <!-- /.container fluid -->
 
      <!-- Footer
       ================================================== -->
-     <div class="wrapper">
-		</div class="push"></div>
-	  
+		<div class="wrapper">
+		</div class="push"></div>	  
 		<div class="footer">
 				<div class="container-fluid">
 					<div class="pull-right">
@@ -245,8 +198,7 @@ echo "No categories yet.";
 								<a href="mailto:ariesmanian1990@gmail.com"><font color="white">adsell2012@gmail.com</font></a>
 								</dd>
 							</dl>
-						</div>
-						
+						</div>						
 						<div class="span4">
 							<address>
 								<dl>
@@ -280,8 +232,7 @@ echo "No categories yet.";
 					</a>
 					<a href="http://www.pinterest.com">
 					<img alt="Google" height="64" src="../img/pin.png" width="64">
-					</a>
-					
+					</a>					
 					</p>
 					<p><font color="gray">
 								&#169; 2012 Alima Direct Selling -</font>
@@ -294,18 +245,10 @@ echo "No categories yet.";
 					</center>
 				</div>
 		</div>
-
     </div><!-- /container -->
-
-
-
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/ADS/js/jquery.js"></script>
-    <script src="/ADS/js/bootstrap-transition.js"></script>
-    <script src="/ADS/js/bootstrap-modal.js"></script>
-    <script src="/ADS/js/bootstrap-carousel.js"></script>
-    <script src="/ADS/js/application.js"></script>
   </body>
 </html>

@@ -26,6 +26,9 @@ $(document).ready(function(){
 		  fileField: {
 		    required: true
 		  },
+		  month: {
+	        required: true
+	      },
 		  street: {
 	        minlength: 2,
 	        required: true
@@ -49,16 +52,22 @@ $(document).ready(function(){
 		    required: true
 		  },
 		  nationality: {
-	        minlength: 2,
+	        minlength: 4,
 	        required: true
 	      },
 		  bio: {
+	        required: true
+	      },
+		  term: {
 	        required: true
 	      }
 	    },
 		messages:{
 					fullname:"Enter your first and last name.",
-					username:"Enter your username.",
+					username:{
+						required:"Enter your username.",
+						minlength:"Username must be minimum of 4 characters."
+					},
 					bio:"About Yourself.",
 					password:{
 						required:"Enter your password.",

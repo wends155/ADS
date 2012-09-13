@@ -1,111 +1,93 @@
-<?php 
- session_start();
- if (!isset($_SESSION["username"])) {
+<?php
+session_start();
+if (!isset($_SESSION['id'])) {
     header("location: ../index.php"); 
     exit();
 }
-include "../db_con/connect_to_mysql.php"; 
-$id = $_SESSION['id'];
 ?>
-<?php 
-//if user attempts to add something to the cart from the product page
-if (isset($_POST['pid'])) {
-    $pid = $_POST['pid'];
-	$wasFound = false;
-	$i = 0;
-	// If the cart session variable is not set or cart array is empty
-	if (!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1) { 
-	    // RUN IF THE CART IS EMPTY OR NOT SET
-		$_SESSION["cart_array"] = array(0 => array("item_id" => $pid, "quantity" => 1));
-	} else {
-		// RUN IF THE CART HAS AT LEAST ONE ITEM IN IT
-		foreach ($_SESSION["cart_array"] as $each_item) { 
-		      $i++;
-		      while (list($key, $value) = each($each_item)) {
-				  if ($key == "item_id" && $value == $pid) {
-					  // That item is in cart already so let's adjust its quantity using array_splice()
-					  array_splice($_SESSION["cart_array"], $i-1, 1, array(array("item_id" => $pid, "quantity" => $each_item['quantity'] + 1)));
-					  $wasFound = true;
-				  } 
-		      } 
-	       }
-		   if ($wasFound == false) {
-			   array_push($_SESSION["cart_array"], array("item_id" => $pid, "quantity" => 1));
-		   }
-	}
-	header("location: cart.php"); 
-    exit();
-}
-?>
-<?php 
-//if user chooses to empty their shopping cart
-if (isset($_GET['cmd']) && $_GET['cmd'] == "emptycart") {
-    unset($_SESSION["cart_array"]);
-}
-?>
-<?php 
-//if user chooses to adjust item quantity
-if (isset($_POST['item_to_adjust']) && $_POST['item_to_adjust'] != "") {
-    // execute some code
-	$item_to_adjust = $_POST['item_to_adjust'];
-	$quantity = $_POST['quantity'];
-	$quantity = preg_replace('#[^0-9]#i', '', $quantity); 
-	if ($quantity >= 100) { $quantity = 99; }
-	if ($quantity < 1) { $quantity = 1; }
-	if ($quantity == "") { $quantity = 1; }
-	$i = 0;
-	foreach ($_SESSION["cart_array"] as $each_item) { 
-		      $i++;
-		      while (list($key, $value) = each($each_item)) {
-				  if ($key == "item_id" && $value == $item_to_adjust) {
-					  // That item is in cart already so let's adjust its quantity using array_splice()
-					  array_splice($_SESSION["cart_array"], $i-1, 1, array(array("item_id" => $item_to_adjust, "quantity" => $quantity)));
-				  } 
-		      } 
-	} 
-}
-?>
-<?php 
-//if user wants to remove an item from cart
-if (isset($_POST['index_to_remove']) && $_POST['index_to_remove'] != "") {
-    // Access the array and run code to remove that array index
- 	$key_to_remove = $_POST['index_to_remove'];
-	if (count($_SESSION["cart_array"]) <= 1) {
-		unset($_SESSION["cart_array"]);
-	} else {
-		unset($_SESSION["cart_array"]["$key_to_remove"]);
-		sort($_SESSION["cart_array"]);
+<?php
+require_once "../db_con/config.php"; 
+$id=$_POST['pid'];
+
+try{
+	$sql="select * from product where id=".$id.";";
+	$result;
+	if($conn->query($sql)){
+		$result=$conn->query($sql);
+		foreach($result->fetchAll() as $row){
+				//echo $row['product_name']." ".$row['details']." ".$row['price']." succesfully added! <br><br>";
+				}
+			}
+	else{
 	}
 }
+catch(PDOException $e){
+}
+
+$id=$row['id'];
+$prodname=$row['product_name'];
+$details=$row['details'];
+$price=$row['price'];
+				
+$ord=array($prodname,$details,$price); //mao ni ang order gkan sa form...
+			
+//clearCart();
+
+function showItems(){
+	if(count($_SESSION['cart'])==0){
+		echo "cart is empty";
+	}
+	else{
+		$cart=$_SESSION['cart'];
+		for($i=0;$i<count($cart);$i++){
+			echo "<tr>";
+			for($j=0;$j<count($cart[$i]);$j++){
+				echo "<td>". $cart[$i][$j]. "</td>";
+				if(is_double($cart[$i][$j])){
+					$totalcartprice=$totalcartprice+$cart[$i][$j+1];
+				}
+			}
+			echo "</tr>";
+		}
+		echo "cart_price: ".$totalcartprice;
+		echo "</table>";
+	}
+	
+}
+
+modifyItemValues(0,3);
+function modifyItemValues($index,$quantity){
+	$_SESSION['cart'][$index][2]=$quantity;
+	$_SESSION['cart'][$index][4]=$quantity*$_SESSION['cart'][$index][3];
+}	
+
+//removeItem(0);
+function removeItem($index){
+	unset($_SESSION['cart'][$index]);
+	sort($_SESSION['cart']);
+}
+
+function clearCart(){
+	unset($_SESSION['cart']);
+}
 ?>
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>ADSell</title>
+    <title>ADSell / Cart</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
     <!-- Le styles -->
     <link href="/ADS/css/bootstrap.css" rel="stylesheet">
-
+	<link href="/ADS/css/docs.css" rel="stylesheet">
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/ADS/ico/favicon.ico">
-    <link rel="apple-touch-icon" href="/ADS/ico/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/ADS/ico/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/ADS/ico/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="/ADS/img/ico/adsell.png">
 	 <style type="text/css">
       body {
         padding-top: 70px;
         padding-bottom: 0px;
 		padding-left: 0px;
-		padding-right: 0px;
-		
+		padding-right: 0px;		
       }
       .sidebar-nav {
         padding: 30px 0;
@@ -115,25 +97,20 @@ if (isset($_POST['index_to_remove']) && $_POST['index_to_remove'] != "") {
       }
     </style>
   </head>
-
   <body background="/ADS/img/grain.jpg" bgcolor="#333333"> 
   <!-- Navbar
     ================================================== -->
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>       
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></a>       
           <div class="nav-collapse">
             <ul class="nav">
               <li>
                 <a class="brand" href="../user/index.php"><img src="../img/ADSELL_png.png" height="35" width="80"></a>
               </li>
-			  <li><a href="../catalog/index.php"><img src="../img/catalog.png"> Catalog</a></li>
-			  <li class="active"><a href="../order/index.php"><img src="../img/cart.png"> Orders</a></li>
+			  <li><a href="../catalog/index.php"><img src="../img/catalog.png"><b> Catalog</b></a></li>
+			  <li class="active"><a href="../order/index.php"><img src="../img/cart.png"><b> Orders</b></a></li>
             </ul>
 			<ul class="nav pull-right">
                   <li id="fat-menu" class="dropdown">
@@ -141,15 +118,17 @@ if (isset($_POST['index_to_remove']) && $_POST['index_to_remove'] != "") {
                     <ul class="dropdown-menu">
 					  <li>					  
 					  <?php
+						$id = $_SESSION['id'];
 						echo "<a href='../user/profile.php'><img src='../user_image/$id.jpg' width='30px' height='30px'> View my profile page</a>";
 					  ?>
 					  </li>
-                      <li><a href="../user/profile.php"><i class="icon-cog"></i> Settings</a></li>
+                      <li class="divider"></li>
+                      <li class="nav-header">Other Menu</li>
+					  <li><a href="../user/profile.php"><i class="icon-cog"></i> Settings</a></li>
 					  <li><a href="../logout.php"><i class="icon-off"></i> Sign Out</a></li>
                     </ul>
                   </li>
             </ul>
-				<p class="navbar-text pull-right">Welcome! <?php echo $_SESSION['username']; ?>&nbsp;</p>
           </div>
         </div>
       </div>
@@ -159,106 +138,53 @@ if (isset($_POST['index_to_remove']) && $_POST['index_to_remove'] != "") {
 
 <!-- Masthead
 ================================================== -->
- <p>
- </p>
-  <div class="container-fluid">
+  <div class="container">
     <div class="row-fluid">
-	 <div class="span3">
-		<div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header"><h4>Order Menu</h4></li>	
-			   <li class="active"><a href="cart.php"><i class="icon-shopping-cart"></i> My Cart</a></li>
-			   <li><a href="../catalog/index.php"><i class="icon-ok"></i> Order Item</a></li>
-               <li class=""><a href="#"><i class="icon-share-alt"></i> Return / Exchange of Item</a></li>
-			   <li class=""><a href="#"><i class="icon-calendar"></i> Due Date of Item</a></li>
-            </ul>
-		</div>
-	 </div>
-	 <div class="span9">
-		<table class="table table-striped">	
-					<th width="3%">Product Name</th>
-					<th width="2%">Unit Price</th>	
-					<th width="1%">Quantity</th>
-					<th width="2%">Total</th>
-					<th width="1%">Remove</th>
-					<br>
-					<?php 
-						//render the cart for the user to view on the page
-						$cartOutput = "";
-						$cartTotal = "";
-						$pp_checkout_btn = '';
-						$product_id_array = '';
-						if (!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1) {
-							$cartOutput = "<div class='alert alert-info'><strong>Heads up!</strong> Your Shopping Cart is Empty.</div>";	
-						} else {
-							// Start PayPal Checkout Button
-							$pp_checkout_btn .= '<form action="" method="post">
-							<input type="hidden" name="cmd" value="_cart">
-							<input type="hidden" name="upload" value="1">
-							<input type="hidden" name="business">';
-							// Start the For Each loop
-							$i = 0; 
-							foreach ($_SESSION["cart_array"] as $each_item) { 
-								$item_id = $each_item['item_id'];
-								$sql = mysql_query("SELECT * FROM product WHERE id='$item_id' LIMIT 1");
-								while ($row = mysql_fetch_array($sql)) {
-									$product_name = $row["product_name"];
-									$price = $row["price"];
-								}
-								$pricetotal = $price * $each_item['quantity'];
-								$cartTotal = $pricetotal + $cartTotal;
-								$pricetotal = ($pricetotal);
-								// Dynamic Checkout Btn Assembly
-								$x = $i + 1;
-								$pp_checkout_btn .= '<input type="hidden" name="item_name_' . $x . '" value="' . $product_name . '">
-								<input type="hidden" name="amount_' . $x . '" value="' . $price . '">
-								<input type="hidden" name="quantity_' . $x . '" value="' . $each_item['quantity'] . '">  ';
-								// Create the product array variable
-								$product_id_array .= "$item_id-".$each_item['quantity'].","; 
-								// Dynamic table row assembly
-								$cartOutput .= "<tr>";
-								$cartOutput .= '<td><a href="../catalog/product.php?id=' . $item_id . '">' . $product_name . '</a><br /></td>';
-								$cartOutput .= '<td>P ' . $price . '</td>';
-								$cartOutput .= 
-								'<td><form action="cart.php" method="post">
-								<input class="input-small" name="quantity" type="text" value="' . $each_item['quantity'] . '" />
-								<input name="adjustBtn' . $item_id . '" type="submit" class="btn btn-info" value="Update" />
-								<input name="item_to_adjust" type="hidden" value="' . $item_id . '" />
-								</form></td>';
-								//$cartOutput .= '<td>' . $each_item['quantity'] . '</td>';
-								$cartOutput .= '<td>P ' . $pricetotal . '</td>';
-								$cartOutput .= '<td><form action="cart.php" method="post"><input name="' . $item_id . '" type="submit" class="btn btn-danger" value="Delete" /><input name="index_to_remove" type="hidden" value="' . $i . '" /></form></td>';
-								$cartOutput .= '</tr>';
-								$i++; 
-							} 
-							$cartTotal = ($cartTotal);
-							$cartTotal = "<div style='font-size:18px; margin-top:12px;' align='right'>Order Total : Php ".$cartTotal." </div>";
-							// Finish the Paypal Checkout Btn
-							$pp_checkout_btn .= '<input type="hidden" name="custom" value="' . $product_id_array . '">
-							</form>';
-						}
-						?>
-					<?php echo $cartOutput; ?>
-		</table>
-		<?php echo $cartTotal; ?>
-		<br><br>
-		<p class="navbar-text pull-right"><a href="cart.php?cmd=emptycart">Click Here to Empty Your Shopping Cart</a></p>
-		<br><br><br>
-		<p class="navbar-text pull-right"><a class='btn btn-warning btn-medium' href='#'>Proceed to Order the Item!</a></p>
-	 </div>
-  
-		
-			<br>
-			<br>
-			
-	  </div> <!-- /.row -->
-   </div> <!-- /.container fluid -->
+	<div class="span12">
+		<ul class="breadcrumb">
+			<li><a href="../catalog/index.php">Order Item</a> <span class="divider">|</span></li>
+			<li><a href="">Return / Exchange of Item</a> <span class="divider">|</span></li>
+			<li><a href="">Due Date of Item</a> <span class="divider">|</span></li>
+			<li class="active"><h4>My Cart</h4></li>
+		</ul>
+	   <div class="well">
+			<?php
+				addItem($ord);
+				function addItem($order=array()){
 
+						if(is_array($_SESSION['cart'])){
+							array_push($_SESSION['cart'], $order);
+							echo count($_SESSION['cart'])." item/s added </br></br>";
+						}
+						else{
+							$_SESSION['cart']=array();
+							array_push($_SESSION['cart'], $order);
+							echo count($_SESSION['cart'])." item/s added </br></br>";
+						}
+				}
+			?>
+			<table class="table table-striped table-bordered">	
+						<th width="2%">Product Name</th>
+						<th width="4%">Details</th>	
+						<th width="1%">Price</th>
+						<th width="1%">Quantity</th>
+						<th width="1%">Total</th>
+						<?php					
+							showItems();
+						?>						
+			</table>
+			<br>
+			<p class="navbar-text pull-right"><button class='btn btn-success btn-medium'><b>Proceed to Checkout</b></button></p>
+			<p class="navbar-text pull-left"><button class='btn btn-primary btn-medium'><b>Click Here to Empty Your Shopping Cart</b></button></p>
+			<br><br>
+	   </div>
+	</div>
+   </div> <!-- /.row -->
+ </div> <!-- /.container fluid -->
      <!-- Footer
       ================================================== -->
-      <div class="wrapper">
-		</div class="push"></div>
-	  
+		<div class="wrapper">
+		</div class="push"></div>	  
 		<div class="footer">
 				<div class="container-fluid">
 					<div class="pull-right">
@@ -273,8 +199,7 @@ if (isset($_POST['index_to_remove']) && $_POST['index_to_remove'] != "") {
 								<a href="mailto:ariesmanian1990@gmail.com"><font color="white">adsell2012@gmail.com</font></a>
 								</dd>
 							</dl>
-						</div>
-						
+						</div>						
 						<div class="span4">
 							<address>
 								<dl>
@@ -297,19 +222,18 @@ if (isset($_POST['index_to_remove']) && $_POST['index_to_remove'] != "") {
 					<div class="g-plusone" data-size="tall"></div>
 					</div>
 					<p>
-					<a href="http://twitter.com">
-					<img alt="Twitter" height="64" src="../img/twitter-logo.png" width="64">
-					</a>
-					<a href="http://www.facebook.com">
-					<img alt="Facebook" height="64" src="../img/fb.png" width="64">
-					</a>
-					<a href="http://www.plus.google.com">
-					<img alt="Google" height="64" src="../img/googleplus.png" width="64">
-					</a>
-					<a href="http://www.pinterest.com">
-					<img alt="Google" height="64" src="../img/pin.png" width="64">
-					</a>
-					
+						<a href="http://twitter.com">
+						<img alt="Twitter" height="64" src="../img/twitter-logo.png" width="64">
+						</a>
+						<a href="http://www.facebook.com">
+						<img alt="Facebook" height="64" src="../img/fb.png" width="64">
+						</a>
+						<a href="http://www.plus.google.com">
+						<img alt="Google" height="64" src="../img/googleplus.png" width="64">
+						</a>
+						<a href="http://www.pinterest.com">
+						<img alt="Google" height="64" src="../img/pin.png" width="64">
+						</a>					
 					</p>
 					<p><font color="gray">
 								&#169; 2012 Alima Direct Selling -</font>
@@ -322,11 +246,7 @@ if (isset($_POST['index_to_remove']) && $_POST['index_to_remove'] != "") {
 					</center>
 				</div>
 		</div>
-
     </div><!-- /container -->
-
-
-
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

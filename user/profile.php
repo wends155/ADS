@@ -4,13 +4,11 @@
     header("location: ../index.php"); 
     exit();
 }
-//Connect to the database through our include 
 include_once "../db_con/connect_to_mysql.php";
-// Place Session variable 'id' into local variable
 $id = $_SESSION['id'];
-// Process the form if it is submitted
 if ($_POST['street']) {
     $username = $_POST['username'];
+	$birthday = $_POST['birthday'];
 	$status = $_POST['status'];
     $street = $_POST['street'];
     $city = $_POST['city'];
@@ -18,7 +16,7 @@ if ($_POST['street']) {
 	$cnum = $_POST['cnum'];
 	$nationality = $_POST['nationality'];
 	$bio = $_POST['bio'];
-    $sql = mysql_query("UPDATE users SET username='$username', status='$status', street='$street', city='$city', province='$province', cnum='$cnum', nationality='$nationality', bio='$bio' WHERE id='$id'"); 
+    $sql = mysql_query("UPDATE users SET username='$username',birthday='$birthday', status='$status', street='$street', city='$city', province='$province', cnum='$cnum', nationality='$nationality', bio='$bio' WHERE id='$id'"); 
     header("location: profile.php");
 exit();
 }
@@ -29,6 +27,7 @@ while($row = mysql_fetch_array($sql)){
 			 $id = $row["id"];
 			 $fullname = $row["name"];
 			 $username = $row["username"];
+			 $birthday = $row["birthday"];
 			 $gender = $row["gender"];
 			 $status = $row["status"];
 			 $date = date ("Y-m-d");
@@ -45,7 +44,7 @@ while($row = mysql_fetch_array($sql)){
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>ADSell</title>
+    <title><?php echo $fullname; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -57,13 +56,11 @@ while($row = mysql_fetch_array($sql)){
 
     <!-- Le styles -->
     <link href="/ADS/css/bootstrap.css" rel="stylesheet">
+	<link href="/ADS/css/docs.css" rel="stylesheet">
 	<link rel="stylesheet" href="/ADS/css/lightbox.css" type="text/css" media="screen" />
 	
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/ADS/ico/favicon.ico">
-    <link rel="apple-touch-icon" href="/ADS/ico/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/ADS/ico/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/ADS/ico/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="/ADS/img/ico/adsell.png">
 	 <style type="text/css">
       body {
         padding-top: 50px;
@@ -99,8 +96,8 @@ while($row = mysql_fetch_array($sql)){
               <li class="">
                 <a class="brand" href="../user/index.php"><img src="../img/ADSELL_png.png" height="35" width="80"></a>
               </li>
-			  <li><a href="../catalog/index.php"><img src="../img/catalog.png"> Catalog</a></li>
-			  <li><a href="../order/index.php"><img src="../img/cart.png"> Orders</a></li>
+			  <li><a href="../catalog/index.php"><img src="../img/catalog.png"><b> Catalog</b></a></li>
+			  <li><a href="../order/index.php"><img src="../img/cart.png"><b> Orders</b></a></li>
             </ul>	
 			<ul class="nav pull-right">
                   <li id="fat-menu" class="dropdown">
@@ -111,12 +108,13 @@ while($row = mysql_fetch_array($sql)){
 						echo "<a href='profile.php'><img src='../user_image/$id.jpg' width='30px' height='30px'> View my profile page</a>";
 					  ?>
 					  </li>
-                      <li><a href="../user/profile.php"><i class="icon-cog"></i> Settings</a></li>
+                      <li class="divider"></li>
+                      <li class="nav-header">Other Menu</li>
+					  <li><a href="profile.php"><i class="icon-cog"></i> Settings</a></li>
 					  <li><a href="../logout.php"><i class="icon-off"></i> Sign Out</a></li>
                     </ul>
                   </li>
             </ul>
-				<p class="navbar-text pull-right">Welcome! <?php echo $_SESSION['username']; ?>&nbsp;</p>
           </div>
         </div>
       </div>
@@ -126,54 +124,40 @@ while($row = mysql_fetch_array($sql)){
 
 <!-- Masthead
 ================================================== -->
- <p>
- </p>
- <br>
+ <br><br><br>
   <div class="container-fluid">
     <div class="row-fluid">
-		<div class="span4">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-				<?php
-					echo "<li class='span10'>
-								<div class='thumbnail'> 
-									<a href='../user_image/$id.jpg' rel='lightbox'>
-									<img src='../user_image/$id.jpg' width='200px' height='200px'></a>
-								</div>
-						  </li><br><br><br><br>";
-				?>
-			   <br><br><br><br><br><br>
-               <li class="nav-header"><h3><?php echo $_SESSION['username']; ?>'s Profile</h3></li>
-			   <p><i><font face="georgia"><?php echo $bio; ?></font></i></p>
-			   <hr class="soften">
-               <li class=""><a data-toggle="modal" href="#edit"><i class="icon-edit"></i> Edit Information</a></li>
-			   <li class=""><a href="changepassword.php"><i class="icon-edit"></i> Change Password</a></li>
-               <li class=""><a href="#"><i class="icon-share-alt"></i> Return and Exchange of Item</a></li>
-			   <li class=""><a href="#"><i class="icon-calendar"></i> Due Date of Item</a></li>
-			   <li class=""><a href="#"><i class="icon-envelope"></i> Mobile</a></li>
-            </ul>
+		<div class="span4">			
+				<ul class="nav nav-list">
+					<?php
+						echo "<li class='span10'>
+									<div class='thumbnail'> 
+										<a href='../user_image/$id.jpg' rel='lightbox'>
+										<img src='../user_image/$id.jpg' width='205px' height='200px'></a>
+									</div>
+							  </li>";
+					?>			   
+				   <li class="nav-header"><h3><?php echo $_SESSION['username']; ?>'s Profile</h3></li>
+				   <p><i><font face="georgia"><?php echo $bio; ?></font></i></p>
+				   <p><?php echo $street; ?>, <?php echo $city; ?>, <?php echo $province; ?></p>
+				</ul>
+		  <div>
+				<ul class="nav nav-list bs-docs-sidenav">
+				  <li><a data-toggle="modal" href="#edit"><i class="icon-edit"></i><i class="icon-chevron-right"></i> Edit Account</a></li>
+				  <li><a href="password.php"><i class="icon-asterisk"></i></i><i class="icon-chevron-right"></i> Password</a></li>
+				  <li><a href="#"><i class="icon-share-alt"></i><i class="icon-chevron-right"></i> Return and Exchange of Item</a></li>
+				  <li><a href="#"><i class="icon-calendar"></i><i class="icon-chevron-right"></i> Due Date of Item</a></li>
+				  <li><a href="sms.php"><i class="icon-envelope"></i><i class="icon-chevron-right"></i> Mobile</a></li>
+				</ul>
 		  </div>
-		<div class="well sidebar-nav"> 
-            <ul class="nav nav-list">
-			 <li class="nav-header"><h4>Search Product</h4></li>
-			    <br>
-				<label>Product  Name: </label>
-				<div class="controls">
-					<form class="form-search" action='../catalog/search.php' method='GET'>        
-							<div class="input-prepend">
-								<input class="input-medium" name='search' type="text" placeholder="Find Product">
-								<input type='submit' class="btn" name='submit' value='Go'>
-							</div>
-					</form>
-				</div>
-				<label>Date: </label>
-				<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-				<input class="input-medium" type="text" value="12-02-2012" readonly>
-				<span class="add-on"><i class="icon-th"></i></span>
-			  </div>
-            </ul>
-          </div>
-        </div><!--/.well -->
+		  <br>
+		  <div class="well">
+			  <div>		
+				  <p>&#169; 2012 ADSell <a href="../catalog/index.php">Catalog</a> <a href="../order/index.php">Order</a> <a href="../info/tos.php">Terms</a><br> 
+				   <a href="../info/about.php">About</a> <a href="../info/privacy.php">Privacy</a> <a href="../info/contact.php">Contact</a></p>
+			  </div>			
+		</div>
+        </div><!--/.span -->
         
 		<!-- modal to edit information -->
 		<div id="edit" class="modal hide fade">	
@@ -181,7 +165,7 @@ while($row = mysql_fetch_array($sql)){
 			  <br>
 				<div class="modal-header">
 				  <a class="close" data-dismiss="modal" >&times;</a>
-				  <h3>Account Information</h3>
+				  <h3>Edit Account</h3>
 				  <p class="help-block">Change your basic account information.</p>
 				</div>
 				 <div class="modal-body">
@@ -193,13 +177,17 @@ while($row = mysql_fetch_array($sql)){
 							<p class="help-block">Enter your username, to recognize you.</p>
 						  </div>
 					  </div>
-					  <div class="control-group">
+					<div class="control-group">
 						<label class="control-label" for="input01">Status:</label>
-						  <div class="controls">
-			                <input type='text' class="input-xlarge" name='status' value='<?php echo $status; ?>'>
-			                <p class="help-block">What status are you?</p>
-			              </div>
-		             </div>
+							<div class="controls">
+								<select name='status' id='status' >
+									<option value="">-Select-</option>
+									<option value="single">Single</option>
+									<option value="married">Married</option>
+									<option value="widowed">Widowed</option>
+								</select>
+							</div>
+					 </div>
 				   	 <div class="control-group">
 						<label class="control-label" for="input01">Street:</label>
 						  <div class="controls">
@@ -236,7 +224,7 @@ while($row = mysql_fetch_array($sql)){
 				          </div>
 		             </div>
 		             <div class="control-group">
-                        <label>Bio:</label>
+                        <label class="control-label">Bio:</label>
                           <div class="controls">
                             <textarea class="input-xlarge" name="bio" rows="3"><?php echo $bio; ?></textarea>
 			                <p class="help-block">About yourself in fewer than 160 characters.</p>
@@ -250,8 +238,7 @@ while($row = mysql_fetch_array($sql)){
 		  <br>
       </form>
 				   </div>
-				 </div>
-			 </form>			
+				 </div>			
         </div> 
 		  
 		<div class="span8">
@@ -263,18 +250,16 @@ while($row = mysql_fetch_array($sql)){
 					  <h3>Profile</h3>
 					</a>
 				  </div>
-				  <div id="info" class="accordion-body collapse in">
+				  <div id="info" class="accordion-body collapse">
 					<div class="accordion-inner">
-					  <form class="form-horizontal" action="index.php" name="myForm" id="myform" method="post">			
-								<table class="table table-bordered">
+						<form class="form-horizontal" action="index.php" name="myForm" id="myform" method="post">			
+								<table class="table table-striped">
 								  <thead>
 									<tr>
 										<th width="1%"></th>
 										<th width="4%"></th>
 									</tr>
 								  </thead>
-								  <tr>
-								  </tr>
 								  <tr>
 									<th><h4>Dealer ID :</h4></th>
 									<td><?php echo $id; ?></td>					   
@@ -286,6 +271,10 @@ while($row = mysql_fetch_array($sql)){
 								  <tr>
 									<th><h4>Username :</h4></th>
 									<td><?php echo $username; ?></td>
+								  </tr>
+								  <tr>
+									<th><h4>Birthday :</h4></th>
+									<td><?php echo $birthday; ?></td>
 								  </tr>
 								  <tr>
 									<th><h4>Gender :</h4></th>
@@ -324,7 +313,7 @@ while($row = mysql_fetch_array($sql)){
 									<td><?php echo $bio; ?></td>
 								  </tr>
 								</table>		
-						 </form>
+						</form>
 					</div>
 				  </div>
 				</div>

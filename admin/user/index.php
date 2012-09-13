@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION["manager"])) {
-    header("location: ../login.php"); 
+    header("location: /ADS/index.php"); 
     exit();
 }
 include "../config/connect_to_mysql.php"; 
@@ -10,7 +10,7 @@ include "../config/connect_to_mysql.php";
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>ADSell</title>
+    <title>ADSell / Dealers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -34,10 +34,7 @@ include "../config/connect_to_mysql.php";
       }
     </style>
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="images/favicon.ico">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="/ADS/img/ico/adsell.png">
   </head>
 
    <body background="/ADS/img/grain.jpg" bgcolor="#333333"> 
@@ -56,35 +53,56 @@ include "../config/connect_to_mysql.php";
           <div class="nav-collapse">
             <ul class="nav">
 			  <li><a class="brand" href="../index.php"><img src="/ADS/img/ADSELL_png.png" height="35" width="80"></a></li>
-			  <li><a href="../category/index.php"><img src="../img/catalog.png"> Catalog</a></li>
-			  <li><a href="../orders/index.php"><img src="../img/cart.png"> Orders</a></li>
-			  <li class="active"><a href="index.php"><img src="../img/user.png"> Dealers</a></li>
-			  <li><a href="../report/index.php"><img src="../img/report.png"> Reports</a></li>
-			  <li><a href="../custom/view.php"><img src="../img/conf.png"> Configuration</a></li>
-			  <li><a href="#contact"><img src="../img/sms.png"> SMS</a></li>
+			  <li><a href="../category/index.php"><img src="../img/catalog.png"><b> Catalog</b></a></li>
+			  <li><a href="../orders/index.php"><img src="../img/cart.png"><b> Orders</b></a></li>
+			  <li class="active"><a href="index.php"><img src="../img/user.png"><b> Dealers</b></a></li>
+			  <li><a href="../report/index.php"><img src="../img/report.png"><b> Reports</b></a></li>
+			  <!--<li><a href="../custom/view.php"><img src="../img/conf.png"> Configuration</a></li>-->
+			  <li><a href="#contact"><img src="../img/sms.png"><b> SMS</b></a></li>
             </ul>
-			<p class="navbar-text pull-right">Howdy! <?php echo $_SESSION['manager']; ?>&nbsp;<a href="../logout.php">Sign Out</a></p>
+			<p class="navbar-text pull-right"><b>Howdy! <?php echo $_SESSION['manager']; ?></b>&nbsp;<a href="../logout.php">Sign Out</a></p>
 		  </div><!--/.nav-collapse -->			
         </div>
       </div>
     </div>
     <div class="container-fluid">
+		<form class="form-search pull-right" action='search.php' method='GET'>        
+			<div class="clearfix">
+				<input class="input-xlarge" name='search' type="text" placeholder="Find Dealer">
+				<input type='submit' class="btn btn-primary" name='submit' value='Search'>
+			</div>
+		</form>
       <div class="row-fluid">
-		 <div class="span11">
+		 <div class="span12">
+		  <div class="well">
 			<table class="table table-striped">	
 					<th class="id">Dealer ID</th>
 					<th class="name">Name</th>
 					<th>Username</th>	
 					<th>Date Joined</th>
 					<th>More Details</th>
-					<h2>List of Dealer</h2><br>
-						<form class="form-search" action='search.php' method='GET'>        
-							<div class="input-prepend">
-								<input class="input-xlarge" name='search' type="text" placeholder="Find Dealer">
-								<input type='submit' class="btn" name='submit' value='Search'>
-							</div>
-						</form>
+					<th>Action</th>
 					<br>
+				<?php 
+					// DELETE DEALER QUESTION
+					if (isset($_GET['deleteid'])) {
+						echo '<div class="alert alert-block alert-error fade in">
+												<a class="close" data-dismiss="alert" href="index.php">&times;</a>
+												<h4 class="alert-heading">Are you sure you want to delete the dealer account?</h4><br>
+												  <a class="btn btn-danger small" href="index.php?yesdelete=' . $_GET['deleteid'] . '">Yes</a>&nbsp; <a class="btn small" href="index.php">No</a>
+							   </div>';				
+									echo "";
+									exit();
+								}
+					if (isset($_GET['yesdelete'])) {
+						$id_to_delete = $_GET['yesdelete'];
+						$sql = mysql_query("DELETE FROM users WHERE id='$id_to_delete' LIMIT 1") or die (mysql_error());
+						$pictodelete = ("ADS/user_image/$id_to_delete.jpg");
+						if (file_exists($pictodelete)) {
+									unlink($pictodelete);
+						}
+					}
+				?>
 				<?php 
 						// whole list of viewing the products stored on the database
 						$user_list = "";
@@ -102,22 +120,17 @@ include "../config/connect_to_mysql.php";
 									echo "<td>$username</td>";
 									echo "<td>$date</td>";
 									echo "<td><a class='btn btn-small btn-info' href='view.php?id=$id'> More Info</a></td>";
+									echo "<td><a class='btn btn-small btn-danger' href='index.php?deleteid=$id'> Delete</a></td>";
 									echo "</tr>";
 							}
 						} else {
 							$user_list = "You have no products listed in your store yet";
 						}
 				?>				
-			</table>		
+			</table>
+		  </div>
 		</div>
-       
-		
       </div><!--/row fluid outside-->
-	  
-	  
-	  <br>
-	  <br>
-	  <br>
 	  <div class="wrapper">
 	  </div class="push"></div>
 	  

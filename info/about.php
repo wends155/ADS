@@ -9,7 +9,7 @@ session_start();
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>ADSell | About Us</title>
+    <title>ADSell / About Us</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -21,12 +21,9 @@ session_start();
 
     <!-- Le styles -->
     <link href="/ADS/css/bootstrap.css" rel="stylesheet">
-
+	<link href="/ADS/css/docs.css" rel="stylesheet">
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/ADS/ico/favicon.ico">
-    <link rel="apple-touch-icon" href="/ADS/ico/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/ADS/ico/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/ADS/ico/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="/ADS/img/ico/adsell.png">
 	 <style type="text/css">
       body {
         padding-top: 70px;
@@ -38,7 +35,7 @@ session_start();
     </style>
   </head>
 
-  <body background="img/grain.jpg" bgcolor="#333333"> 
+  <body background="/ADS/img/grain.jpg" bgcolor="#333333"> 
 
 
   <!-- Navbar
@@ -67,10 +64,10 @@ session_start();
 <!-- Masthead
 ================================================== -->
  <br>
-  <div class="container-fluid">
+  <div class="container">
     <div class="row-fluid">
 			<div class="span9">
-				  <h1>We're a small team based in Philippines...</h1>
+				  <h1>We're a small team ...</h1>
 				  <br>
 				  <p>We believe the internet is an incredible force for good and should be harnessed to enrich peoples lives. Our goal is to shine a light on direct selling products and connect dealers with their franchiser. We're here in the part of Davao del Norte.
 				  </p>
@@ -85,7 +82,7 @@ session_start();
 						<li class="span4">
 							<div class="thumbnail"> 
 							<img src="../img/jela.jpg" alt="Team ADSell  - Jela" width="290px" height="190px">
-							<h4>Jela</h4>
+							<h4>Jelai</h4>
 							</div> 
 						</li>
 						<li class="span4">

@@ -32,7 +32,7 @@ echo "No categories yet.";
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>ADSell</title>
+    <title>ADSell / Catalog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -44,19 +44,15 @@ echo "No categories yet.";
 
     <!-- Le styles -->
     <link href="/ADS/css/bootstrap.css" rel="stylesheet">
-
+	<link href="/ADS/css/docs.css" rel="stylesheet">
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/ADS/ico/favicon.ico">
-    <link rel="apple-touch-icon" href="/ADS/ico/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/ADS/ico/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/ADS/ico/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="/ADS/img/ico/adsell.png">
 	 <style type="text/css">
       body {
         padding-top: 70px;
         padding-bottom: 0px;
 		padding-left: 0px;
-		padding-right: 0px;
-		
+		padding-right: 0px;		
       }
       .sidebar-nav {
         padding: 30px 0;
@@ -68,6 +64,12 @@ echo "No categories yet.";
 		content: none;
 	  }
     </style>
+	<script type="text/javascript">
+	$(function() {		
+		$("#tablesorter-demo").tablesorter({sortList:[[0,0],[2,1]], widgets: ['zebra']});
+		$("#options").tablesorter({sortList: [[0,0]], headers: { 3:{sorter: false}, 4:{sorter: false}}});
+	});	
+	</script>
   </head>
 
   <body background="/ADS/img/grain.jpg" bgcolor="#333333"> 
@@ -76,19 +78,14 @@ echo "No categories yet.";
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-         
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></a>
           <div class="nav-collapse">
             <ul class="nav">
               <li>
                 <a class="brand" href="../user/index.php"><img src="../img/ADSELL_png.png" height="35" width="80"></a>
               </li>
-			  <li class="active"><a href="../catalog/index.php"><img src="../img/catalog.png"> Catalog</a></li>
-			  <li><a href="../order/index.php"><img src="../img/cart.png"> Orders</a></li>
+			  <li class="active"><a href="../catalog/index.php"><img src="../img/catalog.png"><b> Catalog</b></a></li>
+			  <li><a href="../order/index.php"><img src="../img/cart.png"><b> Orders</b></a></li>
             </ul>	
 			<ul class="nav pull-right">
                   <li id="fat-menu" class="dropdown">
@@ -99,39 +96,41 @@ echo "No categories yet.";
 						echo "<a href='../user/profile.php'><img src='../user_image/$id.jpg' width='30px' height='30px'> View my profile page</a>";
 					  ?>
 					  </li>
-                      <li><a href="../user/profile.php"><i class="icon-cog"></i> Settings</a></li>
+                      <li class="divider"></li>
+                      <li class="nav-header">Other Menu</li>
+					  <li><a href="../user/profile.php"><i class="icon-cog"></i> Settings</a></li>
 					  <li><a href="../logout.php"><i class="icon-off"></i> Sign Out</a></li>
                     </ul>
                   </li>
             </ul>
-				<p class="navbar-text pull-right">Welcome! <?php echo $_SESSION['username']; ?>&nbsp;</p>
           </div>
         </div>
       </div>
     </div>
 
     <div class="container">  
-
 <!-- Masthead
 ================================================== -->
-  <div class="container-fluid">
-    <div class="row-fluid">
-	 <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header"><h3>All Category</h3></li>				
+  <div class="container">
+		<form class="form-search pull-right" action='search.php' method='GET'>        						
+			<input class="input-large search-query" name='search' type="text" placeholder="Search Product">
+			<input type='submit' class="btn btn-primary" name='submit' value='Search'>
+		</form>
+   <div class="row-fluid">
+	<div class="span4">
+            <ul class="nav nav-list bs-docs-sidenav">			
                <?php
 					try{
 						require_once "../db_con/config.php";
 						$stmt = $conn->query("select * from category");
 						$res = $stmt->fetchall(PDO::FETCH_ASSOC);						
 						foreach($res as $cat){
-						echo "<li><h3><br>" . $cat['category_name'] . "</h3></li><br>";
+						echo "<li><h3><br>&nbsp;&nbsp;&nbsp;&nbsp;" . $cat['category_name'] . "</h3></li><br>";
 						$subcat = "select * from subcategory where category_id=".$cat['cat_id'];
 						$sub = $conn->query($subcat);
 						$subres = $sub->fetchall(PDO::FETCH_ASSOC);									
 						foreach ($subres as $subcateg){
-							echo "<li><a href=product.php?id=" . $subcateg['id'] . ">&nbsp;&nbsp;".$subcateg['name'] . "</a></li>";
+							echo "<li><a href=product.php?id=" . $subcateg['sub_id'] . "><i class='icon-tag'></i>&nbsp;&nbsp;<i class='icon-chevron-right'></i>".$subcateg['name'] . "</a></li>";
 								}		
 							}									
 						} catch (Exception $e){
@@ -139,76 +138,54 @@ echo "No categories yet.";
 						}
 				?>
             </ul>
-		  </div>
-     </div><!--/.well -->
-	 <div class="span9">
-		<form class="form-search" action='search.php' method='GET'>        
-			<div class="input-prepend">				
-				<input class="input-xlarge" name='search' type="text" placeholder="Find Product">
-				<input type='submit' class="btn" name='submit' value='Search'>
-			</div>
-		</form>
-		<table class="table table-striped table-bordered table-condensed">	
+     </div><!--/.span -->
+	 <br><br>
+	 <div class="span8">	
+		<table id="tablesorter-demo" class="table table-striped table-bordered">	
 				<thead>
 				  <tr>
-					<th>Product Name</th>
-					<th>Description</th>
-					<th>Price</th>
+					<th><center>Product Name</center></th>
+					<th><center>Description</center></th>
+					<th><center>Price<center></th>
 				  </tr>
 				</thead>
 					<?php
-					require_once "../db_con/connect_to_mysql.php";
-					$dynamicList = "";
-					$sql = mysql_query("SELECT * FROM product ORDER BY id DESC LIMIT 30");
-					$productCount = mysql_num_rows($sql); // count the output amount
-						if ($productCount > 0) {
-						while($row = mysql_fetch_array($sql)){ 
-							$id = $row["id"];
-							$product_name = $row["product_name"];
-							$price = $row["price"];
-							$details = $row["details"];
+					
+						try {
+							$stmt = $conn->query("select * from product order by id desc limit 30");
+							$res = $stmt->fetchall(PDO::FETCH_ASSOC);	
+							foreach($res as $row){
+								$id = $row["id"];
 								echo "<tr>";
-								echo "<td><a href='order.php?id=$id'>$product_name</a></td>";
-								echo "<td>$details</td>";
-								echo "<td>P $price.00</td>";
+								echo "<td><a href='order.php?id=$id'>" . $row['product_name'] . "</a></td>";
+								echo "<td>" . $row['details'] . "</td>";
+								echo "<td>" . $row['price'] . "</td>";
 								echo "</tr>";
-								echo "</tbody>";
-							}
-						} else {
-						$dynamicList = "You have no products listed in your store yet";
-						}
-						
-						/*require_once "../db_con/config.php";
-						$sql = "select * from product order by id desc ";
-						$statement = $conn->query($sql);
-						$result = $statement->fetch();
-						echo "<td />";
-						echo "<a href=product.php?id=$id>" .$result['product_name'] . "<td />";
-						echo $result['details'] . "<td />";
-						echo $result['price'];
-						*/
-					?>	
-		</table>		
+								}
+							} catch (Exception $e){
+								echo $e->getMessage();
+							}					
+					?>
+		</table>
+		<br><br>
+		<div class="pagination pagination-centered">
+              <ul>
+                <li class="disabled"><a href="#">&laquo;</a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">&raquo;</a></li>
+             </ul>
+            </div>
 	 </div>
-	 <!--<div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header"><h3>Product Updates</h3></li>				
-               	
-            </ul>
-		  </div>
-     </div>.well -->
-			<br>
-			<br>
-			
 	  </div> <!-- /.row -->
    </div> <!-- /.container fluid -->
-
      <!-- Footer
       ================================================== -->
-      <div class="wrapper">
-		</div class="push"></div>
-	  
+		<div class="wrapper">
+		</div class="push"></div>	  
 		<div class="footer">
 				<div class="container-fluid">
 					<div class="pull-right">
@@ -223,8 +200,7 @@ echo "No categories yet.";
 								<a href="mailto:ariesmanian1990@gmail.com"><font color="white">adsell2012@gmail.com</font></a>
 								</dd>
 							</dl>
-						</div>
-						
+						</div>						
 						<div class="span4">
 							<address>
 								<dl>
@@ -258,8 +234,7 @@ echo "No categories yet.";
 					</a>
 					<a href="http://www.pinterest.com">
 					<img alt="Google" height="64" src="../img/pin.png" width="64">
-					</a>
-					
+					</a>					
 					</p>
 					<p><font color="gray">
 								&#169; 2012 Alima Direct Selling -</font>
@@ -272,15 +247,13 @@ echo "No categories yet.";
 					</center>
 				</div>
 		</div>
-
     </div><!-- /container -->
-
-
-
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/ADS/js/jquery.js"></script>
     <script src="/ADS/js/application.js"></script>
+	<script src="/ADS/js/jquery-latest.js"></script>
+	<script src="/ADS/js/jquery.tablesorter.js"></script>
   </body>
 </html>

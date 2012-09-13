@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>ADSell | Contact Us</title>
+    <title>ADSell / Contact Us</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -14,6 +14,7 @@
 
     <!-- Le styles -->
     <link href="/ADS/css/bootstrap.css" rel="stylesheet">
+	<link href="/ADS/css/docs.css" rel="stylesheet">
 
     <!-- Le fav and touch icons -->
     <link rel="shortcut icon" href="/ADS/ico/favicon.ico">
@@ -57,7 +58,7 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li>
-                <a class="brand" href="index.php"><img src="img/ADSELL_png.png" height="40" width="90"></a>
+                <a class="brand" href="index.php"><img src="img/ADSELL_png.png" height="35" width="80"></a>
               </li>
             </ul>	
           </div>
@@ -70,7 +71,7 @@
 <!-- Masthead
 ================================================== -->
  <br>
-  <div class="container-fluid">
+  <div class="container">
     <div class="row-fluid">
 			<div class="span9">
 				  <h1 id="tagline">Contact Us</h1>

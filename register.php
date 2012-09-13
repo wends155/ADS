@@ -6,7 +6,7 @@ include "db_con/connect_to_mysql.php";
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>ADSell | Registration Form</title>
+    <title>ADSell / Registration Form</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -18,6 +18,7 @@ include "db_con/connect_to_mysql.php";
 
     <!-- Le styles -->
     <link href="/ADS/css/bootstrap.css" rel="stylesheet">
+	<link href="/ADS/css/docs.css" rel="stylesheet">
     <style>
       body {
         padding-top: 20px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -25,14 +26,29 @@ include "db_con/connect_to_mysql.php";
     </style>
 	<link href="css/style.css" rel="stylesheet">
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="images/favicon.ico">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">	
+    <link rel="shortcut icon" href="/ADS/img/ico/adsell.png">
   </head>
 
-<body background="img/m.jpg" bgcolor="#333333"> 
-
+<body>
+<div class="navbar navbar-fixed-top">
+		  <div class="navbar-inner">
+			<div class="container">
+			  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </a>        
+			  <div class="nav-collapse">
+				<ul class="nav">
+				  <li class="active">
+					<a class="brand" href="index.php"><img src="img/ADSELL_png.png" height="35" width="80"></a>
+				  </li>
+				</ul>	
+			  </div>
+			</div>
+		  </div>
+	</div>
+<div class="container">
 <?php
 $submit = $_POST['submit'];
 //form data
@@ -40,6 +56,10 @@ $fullname = strip_tags($_POST['fullname']);
 $username = strtolower(strip_tags($_POST['username']));
 $password = strip_tags($_POST['password']);
 $confirmpassword = strip_tags($_POST['confirmpassword']);
+$day = $_POST['day'];
+$month = $_POST['month'];
+$year = $_POST['year'];
+$birthday = $year."-".$month."-".$day;
 $date = date ("Y-m-d");
 $street = strip_tags($_POST['street']);
 $city = strip_tags($_POST['city']);
@@ -62,7 +82,7 @@ if($count!=0)
 }
 
 //check for existence
-	if($fullname&&$username&&$password&&$confirmpassword&&$street&&$city&&$province&&$cnum&&$gender&&$nationality&&$bio&&$status)
+	if($fullname&&$username&&$password&&$confirmpassword&&$birthday&&$street&&$city&&$province&&$cnum&&$gender&&$nationality&&$bio&&$status)
 	{
 		if ($password==$confirmpassword)
 		{
@@ -71,17 +91,17 @@ if($count!=0)
 				//encrypt
 				$password = md5($password);
 				$confirmpassword = md5($confirmpassword);			
-				$queryreg = mysql_query("INSERT INTO users VALUES ('','$fullname','$username','$password','$date','$street','$city','$province','$cnum','$gender','$nationality','$bio','$status')");
+				$queryreg = mysql_query("INSERT INTO users VALUES ('','$fullname','$username','$password','$birthday','$date','$street','$city','$province','$cnum','$gender','$nationality','$bio','$status')");
 				// Place image in the folder 
 				$pid = mysql_insert_id();
 				$newname = "$pid.jpg";
 				move_uploaded_file( $_FILES['fileField']['tmp_name'], "user_image/$newname");
-				die ("<div class='span6'>	  
+				die ("<br><div class='span12'><br><br>	  
 						 <div class='alert alert-block alert-info fade in'>
 									<a class='close' data-dismiss='alert' href='index.php'>&times;</a>
 									<h4 class='alert-heading'>Hey! You have been successfully registered!</h4>
 									<p></p>
-									<p>
+									<p><br>
 									  <a class='btn btn-info small' href='index.php'>Login my Account</a>
 									</p>
 						 </div>
@@ -97,31 +117,18 @@ if($count!=0)
 	}
 }
 ?>
-	 <div class="navbar navbar-fixed-top">
-		  <div class="navbar-inner">
-			<div class="container">
-			  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			  </a>        
-			  <div class="nav-collapse">
-				<ul class="nav">
-				  <li>
-					<a class="brand" href="index.php"><img src="img/ADSELL_png.png" height="40" width="90"></a>
-				  </li>
-				</ul>	
-			  </div>
-			</div>
-		  </div>
-		</div>
-		<br>
+		<br><br>
 <div class="span12">
-  <div class="well sidebar-nav">
+	<div class="alert alert-info">
+		  <button type="button" class="close" data-dismiss="alert">&times;</button>
+		  <strong>Good Day!</strong> Please fill-up the form with all your valid information. Thanks!
+	</div>
+	<h2>Signing Up...</h2>
+	<hr>
    <form class="form-horizontal" enctype="multipart/form-data" action="register.php" id="contact-form" method="POST">
 		  <div class="control-group">
-		   <legend>Sign-up Information:</legend>
-            <label for="name">Fullname:</label>
+		   <legend>Basic Information:</legend>
+            <label class="control-label" for="name">Fullname:</label>
             <div class="controls">
               <input type="text" name='fullname' value='<?php echo $fullname; ?>'>
             </div>
@@ -150,12 +157,14 @@ if($count!=0)
 				 <input class="input-file" name="fileField" id="fileField" type="file" />
 			</div>
 		  </div>
+		  
 		  <legend>Personal Information:</legend>
-          <!--<div class="control-group">
-            <label class="control-label">Birthday:</label>
-            <div class="controls docs-input-sizes">
-              <select class="span2" name="birthday">
-                <option value="">-Month-</option>
+          <div class="control-group">
+            <label class="control-label" name='birthday'>Birthday:</label>
+            <div class="controls">
+		
+			  <select class="span2" name='month'>
+				<option value="">-Month-</option>
 					<option value="1">January</option> 
 					<option value="2">February</option> 
 					<option value="3">March</option> 
@@ -168,8 +177,8 @@ if($count!=0)
 					<option value="10">October</option> 
 					<option value="11">November</option> 
 					<option value="12">December</option>
-              </select>
-              <select class="span2" name="birthday">
+			  </select>
+              <select class="span2" name='day'>
                 <option value="">-Date-</option> 
 					<option value="1">1</option> 
 					<option value="2">2</option> 
@@ -203,16 +212,82 @@ if($count!=0)
 					<option value="30">30</option> 
 					<option value="31">31</option>
               </select>
-              <select class="span2" name="birthday">
+              <select class="span2" name='year'>
 					<option>-Year-</option>
-					<option>2000</option>
+					<option>1940</option>
+					<option>1941</option>
+					<option>1942</option>
+					<option>1943</option>
+					<option>1944</option>
+					<option>1945</option>
+					<option>1946</option>
+					<option>1947</option>
+					<option>1948</option>
+					<option>1949</option>
+					<option>1950</option>
+					<option>1951</option>
+					<option>1952</option>
+					<option>1953</option>
+					<option>1954</option>
+					<option>1955</option>
+					<option>1956</option>
+					<option>1957</option>
+					<option>1958</option>
+					<option>1959</option>
+					<option>1960</option>
+					<option>1961</option>
+					<option>1962</option>
+					<option>1963</option>
+					<option>1964</option>
+					<option>1965</option>
+					<option>1966</option>
+					<option>1967</option>
+					<option>1968</option>
+					<option>1969</option>
+					<option>1970</option>
+					<option>1971</option>
+					<option>1972</option>
+					<option>1973</option>
+					<option>1974</option>
+					<option>1975</option>
+					<option>1976</option>
+					<option>1977</option>
+					<option>1978</option>
+					<option>1979</option>
+					<option>1980</option>
+					<option>1981</option>
+					<option>1982</option>
+					<option>1983</option>
+					<option>1984</option>
+					<option>1985</option>
+					<option>1986</option>
+					<option>1987</option>
+					<option>1988</option>
+					<option>1989</option>
+					<option>1990</option>
+					<option>1991</option>
+					<option>1992</option>
+					<option>1993</option>
+					<option>1994</option>
+					<option>1995</option>
+					<option>1996</option>
+					<option>1997</option>
+					<option>1998</option>
+					<option>1999</option>
+					<option>2000</option>					
 					<option>2001</option>
 					<option>2002</option>
 					<option>2003</option>
 					<option>2004</option>
+					<option>2005</option>
+					<option>2006</option>
+					<option>2007</option>
+					<option>2008</option>
+					<option>2009</option>
+					<option>2010</option>					
               </select>
             </div>
-		  </div>-->
+          </div>
 		  <div class="control-group">
 				<label class="control-label" for="input01">Street:</label>
 				<div class="controls">
@@ -269,6 +344,14 @@ if($count!=0)
             <div class="controls">
               <textarea class="input-xlarge" name='bio' rows='3' value='<?php echo $bio; ?>'></textarea>
             </div>
+          </div><br>
+		  <div class="control-group">
+            <div class="controls">
+              <label class="radio">
+			    I agree on the <a href="tos.php">Terms and Conditions</a> of ADSell. 
+                <input type="radio" name="term" id="term" value="option1">
+              </label>
+            </div>
           </div>
 	
 		  <hr>
@@ -282,15 +365,18 @@ if($count!=0)
   </form>
  </div>
 	  <footer>
-		  <center>
-			<p><a href="index.php">Home</a> | <a href="about.php">About Us</a> | <a href="contact.php">Contact Us</a> | <a href="privacypolicy.php">Privacy Policy</a> | <a href="">&copy; ADSell 2012</p>
-		  </center>
+		<center>
+			<p><dt><font color="gray">{Made in Philippines} </font><a href="index.php"><font color="gray">Home</font></a> | <a href="about.php"><font color="gray">About Us</font></a> | <a href="contact.php"><font color="gray">Contact Us</font></a> | <a href="privacypolicy.php"><font color="gray">Privacy Policy</font></a> | <a href=""><font color="gray">&copy; ADSell 2012</font></p>
+		</center>
       </footer>
 </div>
 
 
 			  <script src="/ADS/js/jquery.js"></script>
-			  <script src="js/jquery.validate.min.js"></script>
-			  <script src="js/script.js"></script>
+			  <script src="/ADS/js/bootstrap-alert.js"></script>
+			  <script src="/ADS/js/jquery.validate.min.js"></script>
+			  <script src="/ADS/js/script.js"></script>
+			  
+			  
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION["manager"])) {
-    header("location: ../login.php"); 
+    header("location: /ADS/index.php"); 
     exit();
 }
 ?>
@@ -18,6 +18,7 @@ if (isset($_GET['id'])) {
 			 $id = $row["id"];
 			 $fullname = $row["name"];
 			 $username = $row["username"];
+			 $birthday = $row["birthday"];
 			 $gender = $row["gender"];
 			 $date = date ("Y-m-d");
 			 $street = $row["street"];
@@ -45,7 +46,7 @@ mysql_close();
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>ADSell</title>
+    <title>ADSell / Account Information</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -55,9 +56,6 @@ mysql_close();
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
-    <!-- Le styles -->
-	<link href="/ADS/css/datepicker.css" rel="stylesheet">
     <link href="/ADS/css/bootstrap.css" rel="stylesheet">
 	<link rel="stylesheet" href="/ADS/css/lightbox.css" type="text/css" media="screen" />
     <style type="text/css"> 
@@ -70,14 +68,8 @@ mysql_close();
         padding: 30px 0;
       }
     </style>
-    
-	
-
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="images/favicon.ico">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="/ADS/img/ico/adsell.png">
   </head>
 
    <body background="/ADS/img/grain.jpg" bgcolor="#333333"> 
@@ -91,26 +83,36 @@ mysql_close();
 		  <div class="nav-collapse">
             <ul class="nav">			  
 			  <li><a class="brand" href="../index.php"><img src="/ADS/img/ADSELL_png.png" height="35" width="80"></a></li>
-			  <li><a href="../category/index.php"><img src="../img/catalog.png"> Catalog</a></li>
-			  <li><a href="../orders/index.php"><img src="../img/cart.png"> Orders</a></li>
-			  <li class="active"><a href="index.php"><img src="../img/user.png"> Dealers</a></li>
-			  <li><a href="../report/index.php"><img src="../img/report.png"> Reports</a></li>
-			  <li><a href="../custom/view.php"><img src="../img/conf.png"> Configuration</a></li>
-			  <li><a href="#contact"><img src="../img/sms.png"> SMS</a></li>
+			  <li><a href="../category/index.php"><img src="../img/catalog.png"><b> Catalog</b></a></li>
+			  <li><a href="../orders/index.php"><img src="../img/cart.png"><b> Orders</b></a></li>
+			  <li class="active"><a href="index.php"><img src="../img/user.png"><b> Dealers</b></a></li>
+			  <li><a href="../report/index.php"><img src="../img/report.png"><b> Reports</b></a></li>
+			  <!--<li><a href="../custom/view.php"><img src="../img/conf.png"> Configuration</a></li>-->
+			  <li><a href="#contact"><img src="../img/sms.png"><b> SMS</b></a></li>
             </ul>
-			<p class="navbar-text pull-right">Howdy! <?php echo $_SESSION['manager']; ?>&nbsp;<a href="../logout.php">Sign Out</a></p>
+			<p class="navbar-text pull-right"><b>Howdy! <?php echo $_SESSION['manager']; ?></b>&nbsp;<a href="../logout.php">Sign Out</a></p>
 		  </div><!--/.nav-collapse -->
         </div>
       </div>
     </div>
     <div class="container-fluid">
-      <div class="row-fluid">
+		<h4>
+		<ul class="breadcrumb">
+			<li><a href="../index.php">Home</a> <span class="divider">/</span></li>
+			<li><a href="index.php">Dealers</a> <span class="divider">/</span></li>
+			<li class="active">Account Information</li>
+        </ul>
+		</h4>
+      <div class="row-fluid">	  
 	    <div class="span2">
 		  <div class="well sidebar-nav">
             <ul class="nav nav-list">
 				<li class="nav-header"><h4>Dealer Account Information</h4></li><br>
 				<?php
-					echo "<a href='/ADS/user_image/$id.jpg' rel='lightbox'><img src='/ADS/user_image/$id.jpg' width='100' height='100'/></a><br>";
+					echo "<div class='thumbnail'> 
+							  <a href='/ADS/user_image/$id.jpg' rel='lightbox'>
+							  <img src='/ADS/user_image/$id.jpg' width='100' height='100'/></a><br>
+						  </div>";
 				?>
             </ul>
 		  </div>
@@ -129,6 +131,10 @@ mysql_close();
 					  <tr>
 						<th><h4>Username :</h4></th>
 						<td><?php echo $username; ?></td>
+					  </tr>
+					  <tr>
+						<th><h4>Birthday :</h4></th>
+						<td><?php echo $birthday; ?></td>
 					  </tr>
 					  <tr>
 						<th><h4>Gender :</h4></th>

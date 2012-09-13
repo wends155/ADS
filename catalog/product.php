@@ -32,7 +32,7 @@ echo "No categories yet.";
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>ADSell</title>
+    <title>ADSell / Catalog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -44,12 +44,9 @@ echo "No categories yet.";
 
     <!-- Le styles -->
     <link href="/ADS/css/bootstrap.css" rel="stylesheet">
-
+	<link href="/ADS/css/docs.css" rel="stylesheet">
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/ADS/ico/favicon.ico">
-    <link rel="apple-touch-icon" href="/ADS/ico/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/ADS/ico/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/ADS/ico/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="/ADS/img/ico/adsell.png">
 	 <style type="text/css">
       body {
         padding-top: 70px;
@@ -87,8 +84,8 @@ echo "No categories yet.";
               <li>
                 <a class="brand" href="../user/index.php"><img src="../img/ADSELL_png.png" height="35" width="80"></a>
               </li>
-			  <li class="active"><a href="../catalog/index.php"><img src="../img/catalog.png"> Catalog</a></li>
-			  <li><a href="../order/index.php"><img src="../img/cart.png"> Orders</a></li>
+			  <li class="active"><a href="../catalog/index.php"><img src="../img/catalog.png"><b> Catalog</b></a></li>
+			  <li><a href="../order/index.php"><img src="../img/cart.png"><b> Orders</b></a></li>
             </ul>	
 			<ul class="nav pull-right">
                   <li id="fat-menu" class="dropdown">
@@ -99,12 +96,13 @@ echo "No categories yet.";
 						echo "<a href='../user/profile.php'><img src='../user_image/$id.jpg' width='30px' height='30px'> View my profile page</a>";
 					  ?>
 					  </li>
-                      <li><a href="../user/profile.php"><i class="icon-cog"></i> Settings</a></li>
+                      <li class="divider"></li>
+                      <li class="nav-header">Other Menu</li>
+					  <li><a href="../user/profile.php"><i class="icon-cog"></i> Settings</a></li>
 					  <li><a href="../logout.php"><i class="icon-off"></i> Sign Out</a></li>
                     </ul>
                   </li>
             </ul>
-				<p class="navbar-text pull-right">Welcome! <?php echo $_SESSION['username']; ?>&nbsp;</p>
           </div>
         </div>
       </div>
@@ -114,60 +112,61 @@ echo "No categories yet.";
 
 <!-- Masthead
 ================================================== -->
-  <div class="container-fluid">
+  <div class="container">
+		<form class="form-search pull-right" action='search.php' method='GET'>        						
+			<input class="input-large search-query" name='search' type="text" placeholder="Search Product">
+			<input type='submit' class="btn btn-primary" name='submit' value='Search'>
+		</form>
     <div class="row-fluid">
-				 <div class="span3">
-					  <div class="well sidebar-nav">
-						<ul class="nav nav-list">
-						  <li class="nav-header"><h3>All Category</h3></li>				
-							<?php
-								try{
-									require_once "../db_con/config.php";
-									$stmt = $conn->query("select * from category");
-									$res = $stmt->fetchall(PDO::FETCH_ASSOC);						
-									foreach($res as $cat){
-										echo "<li><h3><br>" . $cat['category_name'] . "</h3></li><br>";
-										$subcat = "select * from subcategory where category_id=".$cat['cat_id'];
-										$sub = $conn->query($subcat);
-										$subres = $sub->fetchall(PDO::FETCH_ASSOC);									
-										foreach ($subres as $subcateg){
-											echo "<li><a href=product.php?id=" . $subcateg['id'] . ">&nbsp;&nbsp;".$subcateg['name'] . "</a></li>";
-										}		
-									}								
-								} catch (Exception $e){
-									echo $e->getMessage();
-								}
-							?>
-						</ul>
-					  </div><!--/.well -->
-				 </div><!--/.span -->
-		<div class="span9">
+				 <div class="span4">
+            <ul class="nav nav-list bs-docs-sidenav">			
+               <?php
+					try{
+						require_once "../db_con/config.php";
+						$stmt = $conn->query("select * from category");
+						$res = $stmt->fetchall(PDO::FETCH_ASSOC);						
+						foreach($res as $cat){
+						echo "<li><h3><br>&nbsp;&nbsp;&nbsp;&nbsp;" . $cat['category_name'] . "</h3></li><br>";
+						$subcat = "select * from subcategory where category_id=".$cat['cat_id'];
+						$sub = $conn->query($subcat);
+						$subres = $sub->fetchall(PDO::FETCH_ASSOC);									
+						foreach ($subres as $subcateg){
+							echo "<li><a href=product.php?id=" . $subcateg['sub_id'] . "><i class='icon-tag'></i>&nbsp;&nbsp;<i class='icon-chevron-right'></i>".$subcateg['name'] . "</a></li>";
+								}		
+							}									
+						} catch (Exception $e){
+							echo $e->getMessage();
+						}
+				?>
+            </ul>
+     </div><!--/.span -->
+		<br><br>
+		<div class="span8">
 				<div class="controls">
 					<?php
 						require_once "../db_con/config.php";
 						$product_id = $_GET['id'];						
-						$sql = "select * from subcategory where id=$product_id";
+						$sql = "select * from subcategory where sub_id = '".$product_id."'";
 						$statement = $conn->query($sql);
-						$result = $statement->fetch();			
-						echo "<h4><ul class='breadcrumb'>Catalog / Category / ";
+						$result = $statement -> fetch();			
+						echo "<h4><ul class='breadcrumb'><a href='index.php'>Catalog</a> / Category / ";
 						echo $result['name'] . "<br />";
-						echo "</h4></ul>";
+						echo "</ul></h4>";
 					?>
 				</div>
 				<div>				
 					<ul class="thumbnails">
 						<?php
 							$subcategory_id = $product_id;
-							$subcat_sql = "SELECT * FROM `ads`.`product` where subcategory_id=$subcategory_id";
+							$subcat_sql = "SELECT * FROM `ads`.`product` where subcategory_id= '".$subcategory_id."'";
 							$subcat_stmt = $conn->query($subcat_sql);
 							$products = $subcat_stmt->fetchall(PDO::FETCH_ASSOC);
 									
 							foreach ($products as $product){
-								echo " <ol><li class='span4'><div class='thumbnail'><div class='well'><h4> " . $product['product_name'] . "</h4>" . $product['details'];
+								echo " <ol><li class='span4'><div class='thumbnail'><div class='well'><h4><a href='view.php?id=" . $product['id'] . "'> " . $product['product_name'] . "</a></h4><br>" . $product['details'];
 								echo " <br><br> Price: " . $product['price'];
-								echo " <br><hr><center>
-									   <a class='btn btn-info popover-test' title='Like' data-content='Rate this item!' href='order.php?id=" . $product['id'] . "'><i class='icon-ok icon-black'></i> Like</a>
-									   <a class='btn btn-success' href='order.php?id=" . $product['id'] . "'><i class='icon-plus icon-black'></i> Add</a>
+								echo " <br><hr><center>			
+									   <a class='btn btn-large btn-success popover-test' title='Order' data-content='Order this item and be sure to <b>PAY</b> before the <b>DUE DATE.</b>' href='order.php?id=" . $product['id'] . "'><i class='icon-plus icon-black'></i><b> Add to Order</b></a>
 									   </center>" . "</div></div></li></ol>";
 							}					
 						?>
@@ -176,14 +175,6 @@ echo "No categories yet.";
 		</div>
 	</div>
 </div> <!-- /.row -->
-		
-		
-			<br>
-			<br>
-			
-	  
- 
-
      <!-- Footer
       ================================================== -->
       <div class="wrapper">

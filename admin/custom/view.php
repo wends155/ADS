@@ -1,7 +1,7 @@
 <?php 
 session_start();
 if (!isset($_SESSION["manager"])) {
-   header("location: ../login.php"); 
+   header("location: /ADS/index.php"); 
     exit();
 }
 ?>
@@ -28,7 +28,7 @@ if (isset($_POST['username'])) {
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>ADSell </title>
+    <title>ADSell / Configuration</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -48,10 +48,7 @@ if (isset($_POST['username'])) {
     </style>
     <link href="/ADS/css/bootstrap-responsive.css" rel="stylesheet">
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="images/favicon.ico">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="/ADS/img/ico/adsell.png">
   </head>
 
    <body background="/ADS/img/grain.jpg" bgcolor="#333333"> 

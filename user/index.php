@@ -4,9 +4,7 @@
     header("location: ../index.php"); 
     exit();
 }
-//Connect to the database through our include 
 include_once "../db_con/connect_to_mysql.php";
-// Place Session variable 'id' into local variable
 $id = $_SESSION['id'];
 // Process the form if it is submitted
 if ($_POST['street']) {
@@ -57,12 +55,10 @@ while($row = mysql_fetch_array($sql)){
 
     <!-- Le styles -->
     <link href="/ADS/css/bootstrap.css" rel="stylesheet">
+	<link href="/ADS/css/docs.css" rel="stylesheet">
 	<link rel="stylesheet" href="/ADS/css/lightbox.css" type="text/css" media="screen" />
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/ADS/ico/favicon.ico">
-    <link rel="apple-touch-icon" href="/ADS/ico/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/ADS/ico/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/ADS/ico/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="/ADS/img/ico/adsell.png">
 	 <style type="text/css">
       body {
         padding-top: 50px;
@@ -81,7 +77,7 @@ while($row = mysql_fetch_array($sql)){
     </style>
   </head>
 
-  <body background="/ADS/img/grain.jpg" bgcolor="#333333" data-spy="scroll" data-target=".subnav" data-offset="50"> 
+  <body background="/ADS/img/grain.jpg" bgcolor="#333333"> 
   <!-- Navbar
     ================================================== -->
     <div class="navbar navbar-fixed-top">
@@ -98,8 +94,8 @@ while($row = mysql_fetch_array($sql)){
               <li class="active">
                 <a class="brand" href="../user/index.php"><img src="../img/ADSELL_png.png" height="35" width="80"></a>
               </li>
-			  <li><a href="../catalog/index.php"><img src="../img/catalog.png"> Catalog</a></li>
-			  <li><a href="../order/index.php"><img src="../img/cart.png"> Orders</a></li>
+			  <li><a href="../catalog/index.php"><img src="../img/catalog.png"><b> Catalog</b></a></li>
+			  <li><a href="../order/index.php"><img src="../img/cart.png"><b> Orders</b></a></li>
             </ul>	
 			<ul class="nav pull-right">
                   <li id="fat-menu" class="dropdown">
@@ -110,13 +106,14 @@ while($row = mysql_fetch_array($sql)){
 						echo "<a href='profile.php'><img src='../user_image/$id.jpg' width='30px' height='30px'> View my profile page</a>";
 					  ?>
 					  </li>
-                      <li><a href="../user/profile.php"><i class="icon-cog"></i> Settings</a></li>
+					  <li class="divider"></li>
+                      <li class="nav-header">Other Menu</li>
+					  <li><a href="../user/profile.php"><i class="icon-cog"></i> Settings</a></li>
 					  <li><a href="../logout.php"><i class="icon-off"></i> Sign Out</a></li>
                     </ul>
                   </li>
-            </ul>
-			 
-				<p class="navbar-text pull-right">Welcome! <?php echo $_SESSION['username']; ?>&nbsp;</p>
+            </ul>	 
+				<p class="navbar-text pull-right"><b>Welcome! <?php echo $_SESSION['username']; ?>&nbsp;</b></p>
           </div>
         </div>
       </div>
@@ -127,42 +124,37 @@ while($row = mysql_fetch_array($sql)){
 <!-- Masthead
 ================================================== -->
   <br>
-  <div class="container-fluid">  
+  <div class="container">
+	<form class="form-search pull-right" action='../catalog/search.php' method='GET'>        						
+		<input class="input-large search-query" name='search' type="text" placeholder="Search Product">
+		<input type='submit' class="btn btn-primary" name='submit' value='Search'>
+	</form> 
+	<br><br>
     <div class="row-fluid">
-		<div class="span4">
-		  <div class="well">
-			  <div class="content">
-					<?php
+		<div class="span4"><br>
+		<table class="table table-bordered">
+			<thead>
+                  <th><?php
 						echo "<li class='span5'>
 								<div class='thumbnail'> 
 									<a href='../user_image/$id.jpg' rel='lightbox'>
-									<img src='../user_image/$id.jpg' width='100px' height='100px'></a>
+									<img src='../user_image/$id.jpg' width='110' height='100'></a>
 								</div>
-							  </li><br><br>";
+							  </li>";
 					?>
 					<br>
-					<li class="span7"><h4><a href="profile.php"><?php echo $fullname; ?></a></h4><p>View my profile page</p></li>
-					<br><br><br>
-			  </div>
-			  <br><br>
+					<p>&nbsp;<a href="profile.php"><i><font face="georgia"><?php echo $fullname; ?></font></i></a></p>
+					<p>&nbsp;View my profile</p>
+				  </th>
+            </thead>
+		 </table>
+		<div class="well">
+			  <h3>Notifications</h3><br>
 			  <ul id="tab" class="nav nav-tabs">
-				<li class="active"><a href="#balance" data-toggle="tab">Balance</a></li>
-				<li><a href="#due" data-toggle="tab">Dues</a></li>
-				<li class="dropdown">
-				  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Updates <b class="caret"></b></a>
-				  <ul class="dropdown-menu">
-					<li><a href="#new" data-toggle="tab"><i class="icon-check"></i> New Items</a></li>
-					<li><a href="#discounted" data-toggle="tab"><i class="icon-arrow-down"></i> Discounted Items</a></li>
-				  </ul>
-				</li>
+				<li class="active"><a href="#new" data-toggle="tab"><span class="label label-important">2 New</span>&nbsp;Items</a></li>
+				<li><a href="#discounted" data-toggle="tab">Discounted</a></li>
 			  </ul> 
 			  <div id="myTabContent" class="tab-content">
-				<div class="tab-pane fade in active" id="balance">
-				  <p>Dealer's Credit</p>
-				</div>
-				<div class="tab-pane fade" id="due">
-				  <p>Dealer's Due Date</p>
-				</div>
 				<div class="tab-pane fade" id="new">
 				  <table class="table table-striped table-bordered table-condensed">	
 						<thead>
@@ -198,27 +190,43 @@ while($row = mysql_fetch_array($sql)){
 				  <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.</p>
 				</div>
 			  </div>
-		  </div>
-		<div class="well sidebar-nav"> 
-            <ul class="nav nav-list">
-			 <li class="nav-header"><h3>Search Product</h3></li>
-			    <br>
-				<div class="controls">
-					<form class="form-search" action='../catalog/search.php' method='GET'>        
-							<div class="input-prepend">
-								<input class="input-medium" name='search' type="text" placeholder="Find Product">
-								<input type='submit' class="btn btn-primary" name='submit' value='Go'>
-							</div>
-					</form>
+			  <hr>
+			  <ul id="tab" class="nav nav-tabs">
+				<li class="active"><a href="#balance" data-toggle="tab">&nbsp;Balance</a></li>
+				<li><a href="#due" data-toggle="tab">Dues</a></li>
+			  </ul> 
+			  <div id="myTabContent" class="tab-content">
+				<div class="tab-pane fade in active" id="balance">
+				  <p>Dealer's Credit</p>
 				</div>
-				<label>Date: </label>
-				<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-				<input class="input-medium" type="text" value="12-02-2012" readonly>
-				<span class="add-on"><i class="icon-th"></i></span>
+				<div class="tab-pane fade" id="due">
+				  <p>Dealer's Due Date</p>
+				</div>
 			  </div>
-            </ul>
-          </div>
-        </div><!--/.well -->
+			  <hr>
+			  <ul class="nav nav-list">
+                <h3>Trending Items</h3>
+					<?php 
+								$sql = mysql_query("SELECT * FROM product ORDER BY id DESC LIMIT 7");
+								$productCount = mysql_num_rows($sql); // count the output amount
+								if ($productCount > 0) {
+									while($row = mysql_fetch_array($sql)){ 
+											 $id = $row["id"];
+											 $product_name = $row["product_name"];
+											echo "<br>";										
+											echo "&nbsp;<td><a href='../catalog/order.php?id=$id'>$product_name</a></td>";
+									}
+								}
+							?>
+              </ul>
+		</div>
+		<div class="well">
+			  <div>		
+				  <p>&#169; 2012 ADSell <a href="../catalog/index.php">Catalog</a> <a href="../order/index.php">Order</a> <a href="../info/tos.php">Terms</a><br> 
+				   <a href="../info/about.php">About</a> <a href="../info/privacy.php">Privacy</a> <a href="../info/contact.php">Contact</a></p>
+			  </div>			
+		</div>
+    </div><!--/.well -->
          
 		<!-- modal to view profile -->
 		<div id="prof" class="modal hide fade">	
@@ -376,16 +384,26 @@ while($row = mysql_fetch_array($sql)){
 					  <div class="item active">
 							<div class="thumbnail"> 
 								<img src="../img/e.jpg" alt="">
+								<div class="carousel-caption">
+								  <h4>ADSell says:
+								  <p>Always set your goals higher than you could ever possibly reach. That way, when you barely fall short, you're still better than everybody else. </p>
+								</div>
 							</div> 
 					  </div>
 					  <div class="item">
 							<div class="thumbnail">
 								<img src="../img/ds.jpg" alt="">
+								<div class="carousel-caption">
+								  <p>Quality begins on the inside... and then works its way out.</p>
+								</div>
 							</div>
 					  </div>
 					  <div class="item">
 							<div class="thumbnail">
 								<img src="../img/d.jpg" alt="">
+								<div class="carousel-caption">
+								  <p>The beginning is the most important part of the work.</p>
+								</div>
 							</div>
 					  </div>
 					  <div class="item">
@@ -399,26 +417,23 @@ while($row = mysql_fetch_array($sql)){
 				</div><br>
 				<div class="well">
 				  <h1>To our valued dealers...</h1><br>
+				  <blockquote>
 				  <p>ADSell is a direct selling service company which cater the number of dealers who sell products for their living and additional income as investors.</p>
 				  <p>
 				  ADSell primarily supervise and monitor our valued dealers respectively, the service center help the people to economize and treasure the importance of being a dealer.</p>
 				  <p>
 				  ADSell share the trust, love and respect through their valued dealers all over the country.
 				  </p>
-				  <br>
-				  <br>
+				  <small>ADSell Team<cite title="Source Title"></cite></small>
+				  </blockquote>
 				</div>
 			</div><!--/row-->
-			<br>
-			<br>
 	  </div> <!-- /.row -->
    </div> <!-- /.container fluid -->
-
      <!-- Footer
       ================================================== -->
 		<div class="wrapper">
 		</div class="push"></div>
-	  
 		<div class="footer">
 				<div class="container-fluid">
 					<div class="pull-right">
@@ -493,7 +508,6 @@ while($row = mysql_fetch_array($sql)){
 	<script src="/ADS/js/bootstrap-tab.js"></script>
     <script src="/ADS/js/bootstrap-carousel.js"></script>
     <script src="/ADS/js/application.js"></script>
-	<script src="/ADS/js/bootstrap-datepicker.js"></script>
     <script src="/ADS/js/bootstrap-tooltip.js"></script>
     <script src="/ADS/js/bootstrap-popover.js"></script>
 	<script src="/ADS/js/lightbox.js"></script>
@@ -504,42 +518,6 @@ while($row = mysql_fetch_array($sql)){
 	<script src="/ADS/js/bootstrap-alert.js"></script>
 	<script src="/ADS/js/bootstrap-dropdown.js"></script>
 	<script src="/ADS/js/bootstrap-scrollspy.js"></script>
-	<script>
-		$(function(){
-			window.prettyPrint && prettyPrint();
-			$('#dp1').datepicker({
-				format: 'mm-dd-yyyy'
-			});
-			$('#dp2').datepicker();
-			$('#dp3').datepicker();
-			
-			
-			var startDate = new Date(2012,1,20);
-			var endDate = new Date(2012,1,25);
-			$('#dp4').datepicker()
-				.on('changeDate', function(ev){
-					if (ev.date.valueOf() > endDate.valueOf()){
-						$('#alert').show().find('strong').text('The start date can not be greater then the end date');
-					} else {
-						$('#alert').hide();
-						startDate = new Date(ev.date);
-						$('#startDate').text($('#dp4').data('date'));
-					}
-					$('#dp4').datepicker('hide');
-				});
-			$('#dp5').datepicker()
-				.on('changeDate', function(ev){
-					if (ev.date.valueOf() < startDate.valueOf()){
-						$('#alert').show().find('strong').text('The end date can not be less then the start date');
-					} else {
-						$('#alert').hide();
-						endDate = new Date(ev.date);
-						$('#endDate').text($('#dp5').data('date'));
-					}
-					$('#dp5').datepicker('hide');
-				});
-		});
-	</script>
 
   </body>
 </html>

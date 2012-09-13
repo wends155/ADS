@@ -1,7 +1,7 @@
 <?php 
 session_start();
 if (!isset($_SESSION["manager"])) {
-   header("location: ../login.php"); 
+   header("location: /ADS/index.php"); 
     exit();
 }
 include "../config/connect_to_mysql.php"; 
@@ -65,10 +65,7 @@ if (isset($_GET['pid'])) {
 	
 
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="images/favicon.ico">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="/ADS/img/ico/adsell.png">
   </head>
 
    <body background="img/grain.jpg" bgcolor="#333333"> 

@@ -1,7 +1,7 @@
 <?php 
 session_start();
 if (!isset($_SESSION["manager"])) {
-   header("location: ../login.php"); 
+   header("location: /ADS/index.php"); 
     exit();
 }
 // Connect to the MySQL database  
@@ -48,7 +48,7 @@ if (isset($_GET['pid'])) {
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>ADSell </title>
+    <title>ADSell / Edit Product</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -70,10 +70,7 @@ if (isset($_GET['pid'])) {
 	
 
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="images/favicon.ico">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="/ADS/img/ico/adsell.png">
   </head>
 
    <body background="/ADS/img/grain.jpg" bgcolor="#333333"> 
@@ -85,14 +82,14 @@ if (isset($_GET['pid'])) {
 		  <div class="nav-collapse">
             <ul class="nav">			  
 			  <li><a class="brand" href="../index.php"><img src="/ADS/img/ADSELL_png.png" height="35" width="80"></a></li>
-			  <li class="active"><a href="../category/index.php"><img src="../img/catalog.png"> Catalog</a></li>
-			  <li><a href="../orders/index.php"><img src="../img/cart.png"> Orders</a></li>
-			  <li><a href="../user/index.php"><img src="../img/user.png"> Dealers</a></li>
-			  <li><a href="../report/index.php"><img src="../img/report.png"> Reports</a></li>
-			  <li><a href="../custom/view.php"><img src="../img/conf.png"> Configuration</a></li>
-			  <li><a href="#contact"><img src="../img/sms.png"> SMS</a></li>
+			  <li class="active"><a href="../category/index.php"><img src="../img/catalog.png"><b> Catalog</b></a></li>
+			  <li><a href="../orders/index.php"><img src="../img/cart.png"><b> Orders</b></a></li>
+			  <li><a href="../user/index.php"><img src="../img/user.png"><b> Dealers</b></a></li>
+			  <li><a href="../report/index.php"><img src="../img/report.png"><b> Reports</b></a></li>
+			  <!--<li><a href="../custom/view.php"><img src="../img/conf.png"> Configuration</a></li>-->
+			  <li><a href="#contact"><img src="../img/sms.png"><b> SMS</b></a></li>
             </ul>
-			<p class="navbar-text pull-right">Howdy! <?php echo $_SESSION['manager']; ?>&nbsp;<a href="../logout.php">Sign Out</a></p>
+			<p class="navbar-text pull-right"><b>Howdy! <?php echo $_SESSION['manager']; ?></b>&nbsp;<a href="../logout.php">Sign Out</a></p>
 		  </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -103,13 +100,12 @@ if (isset($_GET['pid'])) {
         <div class="span3">
 		  <div class="well sidebar-nav">
 			<ul class="nav nav-list">
-			  <li class="nav-header"><h4>Search Product</h4></li><br>
-				<label>Product  Name: </label>
+			  <li class="nav-header"><h3>Search Product</h3></li><br>
 				<div class="controls">
 					<form class="form-search" action='search.php' method='GET'>        
-							<div class="input-prepend">
+							<div class="clearfix">
 								<input class="input-small" name='search' type="text" placeholder="Find Product">&nbsp;
-								<input type='submit' class="btn" name='submit' value='Go'>
+								<input type='submit' class="btn btn-primary" name='submit' value='Go'>
 							</div>
 					</form>
 				</div>
@@ -117,42 +113,47 @@ if (isset($_GET['pid'])) {
           </div><!--/.well -->
         </div><!--/span4 end here!-->
 		<div class="span9">
+				<ul class="breadcrumb">
+					<li><a href="index.php">Catalog</a> <span class="divider">/</span></li>
+					<li class="active"><h4>Edit Product</h4></li>
+				</ul>
+				<div class="well">
 				   <form class="form-horizontal" action="edit_prod.php" name="myForm" id="myform" method="post">
 					<fieldset>
-					  <h2>Edit Product</h2><br>
+					  <h2>Edit Product</h2><hr>
 					  <p><code>Note:</code> All field mark with <code>*</code> are required.</p>
 					  <br>
 					  <div class="control-group">
-						<label>Product  Name*:</label>
+						<label class="control-label">Product  Name*:</label>
 						<div class="controls">
 						  <input name="product_name" type="text" id="product_name" value="<?php echo $product_name; ?>"/>
 						</div>
 					  </div>
 					  <div class="control-group">
-						<label>Product Price*:</label>
+						<label class="control-label">Product Price*:</label>
 						<div class="controls">
 						  <input name="price" type="text" id="price" value="<?php echo $price; ?>"/>
 						</div>
 					  </div>
 					  <div class="control-group">
-						<label>Product Quantity*:</label>
+						<label class="control-label">Product Quantity*:</label>
 						<div class="controls">
 						  <input name="qty" type="text" id="qty" value="<?php echo $qty; ?>"/>
 						</div>
 					  </div>
 					  <div class="control-group">
-						<label>Product Details*:</label>
+						<label class="control-label">Product Details*:</label>
 						<div class="controls">
-						  <input name="details" type="text" id="details" value="<?php echo $details; ?>"/>
+						  <textarea class="input-xlarge" name="details" type="text" id="details" rows="5"><?php echo $details; ?></textarea>
 						</div>
 					  </div>
-					  <div>
 					  <div class="form-actions">
-						<button type="submit" class="btn btn-medium btn-warning" name="thisID" value="<?php echo $targetID; ?>">Update Product </button>
-						<button type="reset" class="btn btn-medium btn-danger" onClick="window.location.href='index.php'">Cancel</button>
+						<button type="submit" class="btn btn-medium btn-primary" name="thisID" value="<?php echo $targetID; ?>"><b>Update Product </b></button>
+						<button type="reset" class="btn btn-medium btn-danger" onClick="window.location.href='index.php'"><b>Cancel</b></button>
 					  </div>					 
 					</fieldset>
 				  </form>
+				</div>
 	  </div>
 	</div>
 	  <div class="wrapper">

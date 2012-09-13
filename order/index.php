@@ -10,7 +10,7 @@ $id = $_SESSION['id'];
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>ADSell</title>
+    <title>ADSell / Orders</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -22,12 +22,9 @@ $id = $_SESSION['id'];
 
     <!-- Le styles -->
     <link href="/ADS/css/bootstrap.css" rel="stylesheet">
-
+	<link href="/ADS/css/docs.css" rel="stylesheet">
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/ADS/ico/favicon.ico">
-    <link rel="apple-touch-icon" href="/ADS/ico/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/ADS/ico/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/ADS/ico/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="/ADS/img/ico/adsell.png">
 	 <style type="text/css">
       body {
         padding-top: 70px;
@@ -62,8 +59,8 @@ $id = $_SESSION['id'];
               <li>
                 <a class="brand" href="../user/index.php"><img src="../img/ADSELL_png.png" height="35" width="80"></a>
               </li>
-			  <li><a href="../catalog/index.php"><img src="../img/catalog.png"> Catalog</a></li>
-			  <li class="active"><a href="../order/index.php"><img src="../img/cart.png"> Orders</a></li>
+			  <li><a href="../catalog/index.php"><img src="../img/catalog.png"><b> Catalog</b></a></li>
+			  <li class="active"><a href="../order/index.php"><img src="../img/cart.png"><b> Orders</b></a></li>
             </ul>	
 			<ul class="nav pull-right">
                   <li id="fat-menu" class="dropdown">
@@ -74,12 +71,13 @@ $id = $_SESSION['id'];
 						echo "<a href='../user/profile.php'><img src='../user_image/$id.jpg' width='30px' height='30px'> View my profile page</a>";
 					  ?>
 					  </li>
-                      <li><a href="../user/profile.php"><i class="icon-cog"></i> Settings</a></li>
+                      <li class="divider"></li>
+                      <li class="nav-header">Other Menu</li>
+					  <li><a href="../user/profile.php"><i class="icon-cog"></i> Settings</a></li>
 					  <li><a href="../logout.php"><i class="icon-off"></i> Sign Out</a></li>
                     </ul>
                   </li>
             </ul>
-				<p class="navbar-text pull-right">Welcome! <?php echo $_SESSION['username']; ?>&nbsp;</p>
           </div>
         </div>
       </div>
@@ -89,33 +87,26 @@ $id = $_SESSION['id'];
 
 <!-- Masthead
 ================================================== -->
- <p>
- </p>
-  <div class="container-fluid">
+  <div class="container">
     <div class="row-fluid">
-	 <div class="span3">
-		<div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header"><h3>Order Menu</h3></li>	
-			   <li class=""><a href="cart.php"><i class="icon-shopping-cart"></i> My Cart</a></li>
-			   <li class=""><a href="../catalog/index.php"><i class="icon-ok"></i> Order Item</a></li>
-               <li class=""><a href="#"><i class="icon-share-alt"></i> Return / Exchange of Item</a></li>
-			   <li class=""><a href="#"><i class="icon-calendar"></i> Due Date of Item</a></li>
+	 <div class="span4">	
+            <ul class="nav nav-list bs-docs-sidenav">
+			   <li><a href="cart.php"><i class="icon-shopping-cart"></i><i class="icon-chevron-right"></i> My Cart</a></li>
+			   <li><a href="../catalog/index.php"><i class="icon-ok"></i><i class="icon-chevron-right"></i> Order Item</a></li>
+               <li class=""><a href="#"><i class="icon-share-alt"></i><i class="icon-chevron-right"></i> Return / Exchange of Item</a></li>
+			   <li class=""><a href="#"><i class="icon-calendar"></i><i class="icon-chevron-right"></i> Due Date of Item</a></li>
             </ul>
-		</div>
 	 </div>
 	 <div class="span9">
 	 
 	 </div>
-			<br>
-			<br>
-			<br>
-	  </div> <!-- /.row -->
+			
+	</div> <!-- /.row -->
    </div> <!-- /.container fluid -->
 
      <!-- Footer
       ================================================== -->
-     <div class="wrapper">
+		<div class="wrapper">
 		</div class="push"></div>
 	  
 		<div class="footer">
@@ -183,17 +174,9 @@ $id = $_SESSION['id'];
 		</div>
 
     </div><!-- /container -->
-
-
-
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/ADS/js/jquery.js"></script>
-    <script src="/ADS/js/bootstrap-transition.js"></script>
-    <script src="/ADS/js/bootstrap-modal.js"></script>
-    <script src="/ADS/js/bootstrap-carousel.js"></script>
-    <script src="/ADS/js/application.js"></script>
-	<script src="/ADS/js/bootstrap-datepicker.js"></script>
   </body>
 </html>

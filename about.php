@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>ADSell | About Us</title>
+    <title>ADSell / About Us</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -14,6 +14,7 @@
 
     <!-- Le styles -->
     <link href="/ADS/css/bootstrap.css" rel="stylesheet">
+	<link href="/ADS/css/docs.css" rel="stylesheet">
 
     <!-- Le fav and touch icons -->
     <link rel="shortcut icon" href="/ADS/ico/favicon.ico">
@@ -47,7 +48,7 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li>
-                <a class="brand" href="index.php"><img src="img/ADSELL_png.png" height="40" width="90"></a>
+                <a class="brand" href="index.php"><img src="img/ADSELL_png.png" height="35" width="80"></a>
               </li>
             </ul>	
           </div>
@@ -60,12 +61,12 @@
 <!-- Masthead
 ================================================== -->
  <br>
-  <div class="container-fluid">
+  <div class="container">
     <div class="row-fluid">
 			<div class="span9">
-				  <h1>We're a small team based in Philippines...</h1>
+				  <h1>We're a small team...</h1>
 				  <br>
-				  <p>We believe the internet is an incredible force for good and should be harnessed to enrich peoples lives. Our goal is to shine a light on direct selling products and connect dealers with their franchiser. We're here in the part of Davao del Norte.
+				  <p>We believe that the internet is one way for communication and should be harnessed to enrich peoples lives. Our goal is to lighten the hassle work on manipulating a direct selling products and connect the dealers with their franchiser. We're here in the part of Panabo, Davao del Norte :))
 				  </p>
 				  
 					<ul class="thumbnails">
@@ -93,12 +94,11 @@
 							<h2>We believe in:</h2>
 						</div>
 						<div class="span8">
-							<p>Sustainability &amp; building relationships through commerce.</p>
 							<p>Artistic integrity &amp; individuality. Quality over quantity.</p>
 							<p>Disrupting the status-quo. Being radical &amp; brave.</p>
 							<p>Empowerment &amp; self actualization. We all exist for a purpose.</p>
-							<p>Championing the underdog. Taking on the establishment.</p>
-							<p>Transforming mundane into exquisite. Banal into mind-blowing.</p>
+							<p>"Everything is best when it is ended."</p>
+							<p>"Nothing in life is more wonderful than faith."</p>
 						</div>
 					</div>
 				  
