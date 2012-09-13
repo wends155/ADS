@@ -4,7 +4,7 @@ session_start();
     header("location: ../index.php"); 
     exit();
 }
-include_once "../db_con/connect_to_mysql.php";
+//include_once "../db_con/connect_to_mysql.php";
 $id = $_SESSION['id'];
 ?>
 <?php 
@@ -122,13 +122,13 @@ echo "No categories yet.";
             <ul class="nav nav-list bs-docs-sidenav">			
                <?php
 					try{
-						require_once "../db_con/config.php";
-						$stmt = $conn->query("select * from category");
+						require_once '../db_con/db.php';
+						$stmt = DB::query("select * from category");
 						$res = $stmt->fetchall(PDO::FETCH_ASSOC);						
 						foreach($res as $cat){
 						echo "<li><h3><br>&nbsp;&nbsp;&nbsp;&nbsp;" . $cat['category_name'] . "</h3></li><br>";
 						$subcat = "select * from subcategory where category_id=".$cat['cat_id'];
-						$sub = $conn->query($subcat);
+						$sub = DB::query($subcat);
 						$subres = $sub->fetchall(PDO::FETCH_ASSOC);									
 						foreach ($subres as $subcateg){
 							echo "<li><a href=product.php?id=" . $subcateg['sub_id'] . "><i class='icon-tag'></i>&nbsp;&nbsp;<i class='icon-chevron-right'></i>".$subcateg['name'] . "</a></li>";
@@ -144,10 +144,10 @@ echo "No categories yet.";
 		<div class="span8">
 				<div class="controls">
 					<?php
-						require_once "../db_con/config.php";
+						
 						$product_id = $_GET['id'];						
 						$sql = "select * from subcategory where sub_id = '".$product_id."'";
-						$statement = $conn->query($sql);
+						$statement = DB::query($sql);
 						$result = $statement -> fetch();			
 						echo "<h4><ul class='breadcrumb'><a href='index.php'>Catalog</a> / Category / ";
 						echo $result['name'] . "<br />";
@@ -159,7 +159,7 @@ echo "No categories yet.";
 						<?php
 							$subcategory_id = $product_id;
 							$subcat_sql = "SELECT * FROM `ads`.`product` where subcategory_id= '".$subcategory_id."'";
-							$subcat_stmt = $conn->query($subcat_sql);
+							$subcat_stmt = DB::query($subcat_sql);
 							$products = $subcat_stmt->fetchall(PDO::FETCH_ASSOC);
 									
 							foreach ($products as $product){
