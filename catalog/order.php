@@ -4,7 +4,8 @@
     header("location: ../index.php"); 
     exit();
 }
-include_once "../db_con/connect_to_mysql.php";
+require_once '../db_con/connect_to_mysql.php';
+require_once '../db_con/db.php';
 ?>	
 <!DOCTYPE html>
 <html lang="en">
@@ -99,13 +100,13 @@ include_once "../db_con/connect_to_mysql.php";
             <ul class="nav nav-list bs-docs-sidenav">			
                <?php
 					try{
-						require_once "../db_con/config.php";
-						$stmt = $conn->query("select * from category");
+						
+						$stmt = DB::query("select * from category");
 						$res = $stmt->fetchall(PDO::FETCH_ASSOC);						
 						foreach($res as $cat){
 						echo "<li><h3><br>&nbsp;&nbsp;&nbsp;&nbsp;" . $cat['category_name'] . "</h3></li><br>";
 						$subcat = "select * from subcategory where category_id=".$cat['cat_id'];
-						$sub = $conn->query($subcat);
+						$sub = DB::query($subcat);
 						$subres = $sub->fetchall(PDO::FETCH_ASSOC);									
 						foreach ($subres as $subcateg){
 							echo "<li><a href=product.php?id=" . $subcateg['sub_id'] . "><i class='icon-tag'></i>&nbsp;&nbsp;<i class='icon-chevron-right'></i>".$subcateg['name'] . "</a></li>";
@@ -168,7 +169,7 @@ include_once "../db_con/connect_to_mysql.php";
 		  </form>   
 		  <div class="form-actions">
 			<center>
-				  <form id="form1" name="form1" method="post" action="../order/cart.php">
+				  <form id="form1" name="form1" method="post" action="../order/mycart.php">
 						<input type="hidden" name="pid" id="button" value="<?php echo $id; ?>" />			
 						<input type="submit" class="btn btn-large btn-primary" name="button" id="pid" value="Add to Order" />&nbsp;
 						<input name="button" type="button" id="button" value="Cancel" onClick="window.location.href='index.php'" class="btn btn-large btn-danger">					

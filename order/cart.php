@@ -6,13 +6,13 @@ if (!isset($_SESSION['id'])) {
 }
 ?>
 <?php
-require_once "../db_con/config.php"; 
+require_once '../db_con/db.php'; 
 $id=$_POST['pid'];
 
 try{
 	$sql="select * from product where id=".$id.";";
-	$result;
-	if($conn->query($sql)){
+	$stmt = DB::query($sql);
+	if($stmt){
 		$result=$conn->query($sql);
 		foreach($result->fetchAll() as $row){
 				//echo $row['product_name']." ".$row['details']." ".$row['price']." succesfully added! <br><br>";
