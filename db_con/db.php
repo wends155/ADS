@@ -1,12 +1,20 @@
 <?php
+include 'my_setting.php';
+
 	class DB{
+		
 		private static $conn = null;
-				
-		private static function getDB(){
+		//private static $settings = $set['host'];	
+			
+		public static function getDB(){
 			if(self::$conn instanceof PDO){
 				return self::$conn;
 			}
-			return self::$conn = new PDO('mysql:host=localhost;dbname=ads','root','villacorta');
+			$host = $GLOBALS['set_host'];
+			$db = $GLOBALS['set_db'];
+			$user = $GLOBALS['set_user'];
+			$pass = $GLOBALS['set_pass'];
+			return self::$conn = new PDO("mysql:host=$host;dbname=$db","$user","$pass");
 		}
 		
 		public static function errorInfo(){
