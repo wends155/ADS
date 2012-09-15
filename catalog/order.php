@@ -97,6 +97,8 @@ require_once '../db_con/db.php';
 		</form>
     <div class="row-fluid">
 	 <div class="span4">
+		 <!-- Produccts Navigation Bar
+		================================================== -->
             <ul class="nav nav-list bs-docs-sidenav">			
                <?php
 					try{
@@ -155,7 +157,7 @@ require_once '../db_con/db.php';
 				</div>
 			  </div>
 			  <div class="control-group">
-				<label class="control-label">(Php) Price:</label>
+				<label class="control-label">(Php) Unit Price:</label>
 				<div class="controls">
 				  <span class="input-xlarge uneditable-input" id="price"><?php echo $price; ?></span>
 				</div>
@@ -171,7 +173,7 @@ require_once '../db_con/db.php';
 			<center>
 				  <form id="form1" name="form1" method="post" action="../order/mcart.php">
 						<input type="hidden" name="pid" id="button" value="<?php echo $id; ?>" />			
-						<input type="submit" class="btn btn-large btn-primary" name="button" id="pid" value="Add to Order" />&nbsp;
+						<input type="submit" class="btn btn-large btn-primary" name="button" id="pid" value="Add to Cart" />&nbsp;
 						<input name="button" type="button" id="button" value="Cancel" onClick="window.location.href='index.php'" class="btn btn-large btn-danger">					
 				  </form>
 			</center>

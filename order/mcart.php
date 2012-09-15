@@ -1,8 +1,7 @@
 <?php
-require_once '../twig/lib/Twig/Autoloader.php';
-Twig_Autoloader::register();
-$loader = new Twig_Loader_Filesystem('../templates');
-$twig = new Twig_Environment($loader);
-$template =  $twig->loadTemplate('cart.html');
-echo $template->render(array());
+session_start();
+require_once '../db_con/template.php';
+$template =  Template::load('cart.html');
+$cart = $_SESSION['cart'];
+echo $template->render(array('products'=>$cart));
 ?>
