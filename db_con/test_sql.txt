@@ -1,0 +1,1 @@
+select sub_id, subcategory.name, category.category_name as brand from subcategory left join category on category.cat_id=subcategory.category_id;
