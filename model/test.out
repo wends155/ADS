@@ -1,0 +1,252 @@
+array(5) {
+  [0]=>
+  array(5) {
+    ["cat_id"]=>
+    string(3) "130"
+    ["category_name"]=>
+    string(7) "Natasha"
+    ["details"]=>
+    string(16) "Natasha Products"
+    ["date_added"]=>
+    string(10) "2012-08-09"
+    ["subcat"]=>
+    array(6) {
+      [0]=>
+      array(3) {
+        ["sub_id"]=>
+        string(2) "30"
+        ["name"]=>
+        string(19) "Natasha Ladies Wear"
+        ["category_id"]=>
+        string(3) "130"
+      }
+      [1]=>
+      array(3) {
+        ["sub_id"]=>
+        string(2) "31"
+        ["name"]=>
+        string(17) "Natasha Mens Wear"
+        ["category_id"]=>
+        string(3) "130"
+      }
+      [2]=>
+      array(3) {
+        ["sub_id"]=>
+        string(2) "32"
+        ["name"]=>
+        string(22) "Renee Salud Collection"
+        ["category_id"]=>
+        string(3) "130"
+      }
+      [3]=>
+      array(3) {
+        ["sub_id"]=>
+        string(2) "33"
+        ["name"]=>
+        string(14) "Natasha Beauty"
+        ["category_id"]=>
+        string(3) "130"
+      }
+      [4]=>
+      array(3) {
+        ["sub_id"]=>
+        string(2) "34"
+        ["name"]=>
+        string(12) "Natasha Kids"
+        ["category_id"]=>
+        string(3) "130"
+      }
+      [5]=>
+      array(3) {
+        ["sub_id"]=>
+        string(2) "43"
+        ["name"]=>
+        string(8) "TRU Wear"
+        ["category_id"]=>
+        string(3) "130"
+      }
+    }
+  }
+  [1]=>
+  array(5) {
+    ["cat_id"]=>
+    string(3) "127"
+    ["category_name"]=>
+    string(4) "Avon"
+    ["details"]=>
+    string(15) "All about Avon."
+    ["date_added"]=>
+    string(10) "2012-08-08"
+    ["subcat"]=>
+    array(5) {
+      [0]=>
+      array(3) {
+        ["sub_id"]=>
+        string(2) "28"
+        ["name"]=>
+        string(12) "Avon Make-Up"
+        ["category_id"]=>
+        string(3) "127"
+      }
+      [1]=>
+      array(3) {
+        ["sub_id"]=>
+        string(2) "27"
+        ["name"]=>
+        string(14) "Avon Fragrance"
+        ["category_id"]=>
+        string(3) "127"
+      }
+      [2]=>
+      array(3) {
+        ["sub_id"]=>
+        string(2) "26"
+        ["name"]=>
+        string(18) "Avon Personal Care"
+        ["category_id"]=>
+        string(3) "127"
+      }
+      [3]=>
+      array(3) {
+        ["sub_id"]=>
+        string(2) "25"
+        ["name"]=>
+        string(14) "Avon Skin Care"
+        ["category_id"]=>
+        string(3) "127"
+      }
+      [4]=>
+      array(3) {
+        ["sub_id"]=>
+        string(2) "29"
+        ["name"]=>
+        string(21) "Avon Intimate Apparel"
+        ["category_id"]=>
+        string(3) "127"
+      }
+    }
+  }
+  [2]=>
+  array(5) {
+    ["cat_id"]=>
+    string(3) "128"
+    ["category_name"]=>
+    string(24) "Personal Collection (PC)"
+    ["details"]=>
+    string(28) "Personal Collection Products"
+    ["date_added"]=>
+    string(10) "2012-08-09"
+    ["subcat"]=>
+    array(2) {
+      [0]=>
+      array(3) {
+        ["sub_id"]=>
+        string(2) "36"
+        ["name"]=>
+        string(12) "PC Home Care"
+        ["category_id"]=>
+        string(3) "128"
+      }
+      [1]=>
+      array(3) {
+        ["sub_id"]=>
+        string(2) "37"
+        ["name"]=>
+        string(14) "PC Health Care"
+        ["category_id"]=>
+        string(3) "128"
+      }
+    }
+  }
+  [3]=>
+  array(5) {
+    ["cat_id"]=>
+    string(3) "131"
+    ["category_name"]=>
+    string(11) "Ever Bilena"
+    ["details"]=>
+    string(22) "Ever Bilena Collection"
+    ["date_added"]=>
+    string(10) "2012-08-09"
+    ["subcat"]=>
+    array(5) {
+      [0]=>
+      array(3) {
+        ["sub_id"]=>
+        string(2) "44"
+        ["name"]=>
+        string(26) "Ever Bilena Mens Fragrance"
+        ["category_id"]=>
+        string(3) "131"
+      }
+      [1]=>
+      array(3) {
+        ["sub_id"]=>
+        string(2) "45"
+        ["name"]=>
+        string(28) "Ever Bilena Ladies Fragrance"
+        ["category_id"]=>
+        string(3) "131"
+      }
+      [2]=>
+      array(3) {
+        ["sub_id"]=>
+        string(2) "46"
+        ["name"]=>
+        string(19) "Ever Bilena Advance"
+        ["category_id"]=>
+        string(3) "131"
+      }
+      [3]=>
+      array(3) {
+        ["sub_id"]=>
+        string(2) "47"
+        ["name"]=>
+        string(8) "Careline"
+        ["category_id"]=>
+        string(3) "131"
+      }
+      [4]=>
+      array(3) {
+        ["sub_id"]=>
+        string(2) "48"
+        ["name"]=>
+        string(18) "Ever Bilena Beauty"
+        ["category_id"]=>
+        string(3) "131"
+      }
+    }
+  }
+  [4]=>
+  array(5) {
+    ["cat_id"]=>
+    string(3) "136"
+    ["category_name"]=>
+    string(28) "Marikina Shoe Exchange (MSE)"
+    ["details"]=>
+    string(27) "All about MSE products ... "
+    ["date_added"]=>
+    string(10) "2012-09-07"
+    ["subcat"]=>
+    array(2) {
+      [0]=>
+      array(3) {
+        ["sub_id"]=>
+        string(2) "54"
+        ["name"]=>
+        string(12) "MSE Footwear"
+        ["category_id"]=>
+        string(3) "136"
+      }
+      [1]=>
+      array(3) {
+        ["sub_id"]=>
+        string(2) "55"
+        ["name"]=>
+        string(9) "MSE Denim"
+        ["category_id"]=>
+        string(3) "136"
+      }
+    }
+  }
+}

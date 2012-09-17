@@ -14,6 +14,7 @@
 			<ul class="nav pull-right">
 				<form id="nav-search" action="" class="navbar-search">
 					<input type="search" class="span3" placeholder="Search" />
+					<input type="button" />
 				</form>	
 			<li id="fat-menu" class="dropdown">
 			<a href="" class="dropdown-toggle" data-toggle="dropdown"><img src="../img/user.png"><b class="caret"></b></a>

@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="row-fluid">	
-<div class="span4">
-	{% include "cat.html" %}
-</div>	
+{% include "cat.html" %}	
 </div>
 
 {% endblock %}

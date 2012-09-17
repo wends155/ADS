@@ -1,0 +1,9 @@
+<ul class="nav nav-list bs-docs-sidenav">
+{% for category in nav %}
+	<li><h3><br>&nbsp;&nbsp;&nbsp;&nbsp;{{ category.category_name }}</h3></li><br>
+	{% for subcat in category.subcat %}
+		<li><a href=product.php?id={{ subcat.sub_id }}><i class='icon-tag'></i>&nbsp;&nbsp;<i class='icon-chevron-right'></i>{{subcat.name}}</a></li>
+	{% endfor %}
+	
+{% endfor %}
+</ul>
