@@ -1,7 +1,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>{{ title }}</title>
+    <title>ADS - {{ title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Le styles -->
     <link href="/ADS/css/bootstrap.css" rel="stylesheet">
@@ -21,6 +21,20 @@
 	  ul.nav li.dropdown:hover ul.dropdown-menu{
         display: block;    
       }
+
+      .prod_thumbs{
+	 width: 290px;
+	 height: 180px;	
+
+      }
+      .subcat_img{
+        width:640px;
+	height:240px;
+      }
+      .prod_img{
+	width: 270px;      
+	height: 400px;
+      }
     </style>
   </head>
   <body background="/ADS/img/grain.jpg" bgcolor="#333333"> 
@@ -31,7 +45,7 @@
 <!-- Masthead
 ================================================== -->
   <div class="container">
-    {% include "fragments/searchbar.html" %}
+    
     {% block content %}
     
    {% endblock %}

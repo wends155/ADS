@@ -1,10 +1,10 @@
-<div class="row">
+
 <ul class="thumbnails">
   {% for product in products %}
   <li class="span4">
     <div class="thumbnail">
       <a href="/ADS/catalog/product.php?id={{product.id}}">
-	<img src="/ADS/img/290x180.gif" alt="">
+	<img class="prod_thumbs" src="/ADS/img/{{product.id}}.gif" alt="">
         <h3>{{product.product_name}}</h3>
       </a>      
   	<p>{{product.details}}</p>
@@ -17,4 +17,4 @@
   
 
 </ul>
-</div>
+

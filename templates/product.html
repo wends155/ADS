@@ -5,16 +5,19 @@
 	{% include "cat.html" %}
 </div>
 <div class="span8">
-
+	<br /><br />
 	<div class="row">
-	  <img src="/ADS/img/640x240.gif" alt="" />
+	  <img class="subcat_img" src="/ADS/img/subcat_{{product.sub_id}}.gif" alt="" />
 	 
 	</div>
-	{% include "fragments/breadcrumb.html"%}
+	<div class="row">
+	  	{% include "fragments/breadcrumb.html"%}
+
+	</div>
 
 	<div class="row">
 	  <div class="span4">
-	    <img src="/ADS/img/270x400.gif" alt="" />
+	    <img class="prod_img" src="/ADS/img/prod_{{product.id}}.gif" alt="" />
           </div>
   	  <div class="span4">
             <h1>{{product.name}}</h1>

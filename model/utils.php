@@ -43,6 +43,14 @@ class Util{
 		}
 	}
 	
+	public static function getNewProducts(){
+		
+			$stmt = DB::query("SELECT * FROM `product` ORDER BY id DESC LIMIT 8");
+			return $stmt->fetchall(PDO::FETCH_ASSOC);
+		
+		
+	}
+	
 }
 
 ?>

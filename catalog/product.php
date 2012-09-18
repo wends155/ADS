@@ -12,14 +12,14 @@ $product = Util::getProduct($productID);
 
 $template = Template::load('product.html');
 $data = array(
-	'title' => 'ADS - ' . $product['name'],
+	'title' => $product['name'],
 	'catalog' => true,
 	'user' => array('id' => $_SESSION['id'], 'name' => $_SESSION['username']),
 	'breadcrumbs' => array(array('url' => '/ADS/catalog/index.php', 'name'=>'Catalog'), 
 						   array('url' => "/ADS/catalog/subcategory.php?id=" . $product['sub_id'], 'name'=>$product['sub_name'])),
-	'btitle' => $product['name'],
+	
 	'nav' => Util::getCat(),
-	'product' => Util::getProduct($productID)
+	'product' => $product
 );
 echo $template->render($data);
 
