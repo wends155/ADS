@@ -1,10 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="row">	
+	
 <div class="span4">
 	{% include "cat.html" %}
 </div>
 <div class="span8">
+	<div class="row">
+	  <img src="/ADS/img/640x240.gif" alt="" />
+	 
+	</div>
+	<div class="row">
+
+	{% include "fragments/breadcrumb.html"%}
+
 	{% include "thumb_prod.html" %}
 
 </div>	

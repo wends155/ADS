@@ -1,0 +1,20 @@
+<div class="row">
+<ul class="thumbnails">
+  {% for product in products %}
+  <li class="span4">
+    <div class="thumbnail">
+      <a href="/ADS/catalog/product.php?id={{product.id}}">
+	<img src="/ADS/img/290x180.gif" alt="">
+        <h3>{{product.product_name}}</h3>
+      </a>      
+  	<p>{{product.details}}</p>
+        <p>Php {{product.price}}</p>
+      
+    </div>
+  </li>
+
+  {% endfor %}
+  
+
+</ul>
+</div>

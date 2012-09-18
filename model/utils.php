@@ -18,6 +18,31 @@ class Util{
 		return $categories;
 	}
 	
+	public static function getSubCat($id){
+		if($id){
+			$stmt = DB::query("SELECT * FROM `subcategory` WHERE `sub_id`=$id LIMIT 1");
+			return $stmt->fetch(PDO::FETCH_ASSOC);
+		}
+	}
+	
+	public static function getSubCatProducts($subcatID){
+		if($subcatID){
+			$stmt = DB::query("SELECT * FROM `product` WHERE `subcategory_id`=$subcatID");
+			return $stmt->fetchall(PDO::FETCH_ASSOC);
+		}
+		
+	}
+	
+	public static function getProduct($id){
+		if($id){
+			$stmt = DB::query("SELECT product.id, product.product_name as name, product.details, 
+			product.price, product.date, subcategory.sub_id,subcategory.name as sub_name
+			FROM product JOIN subcategory ON subcategory.sub_id=product.subcategory_id
+			WHERE product.id=$id LIMIT 1;");
+			return $stmt->fetch(PDO::FETCH_ASSOC);
+		}
+	}
+	
 }
 
 ?>

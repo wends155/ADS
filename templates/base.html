@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Le styles -->
     <link href="/ADS/css/bootstrap.css" rel="stylesheet">
-	<link href="/ADS/css/docs.css" rel="stylesheet">
+    <link href="/ADS/css/docs.css" rel="stylesheet">
     <!-- Le fav and touch icons -->
     <link rel="shortcut icon" href="/ADS/img/ico/adsell.png">
 	 <style type="text/css">
@@ -31,18 +31,9 @@
 <!-- Masthead
 ================================================== -->
   <div class="container">
+    {% include "fragments/searchbar.html" %}
     {% block content %}
-    <div class="row-fluid">
-	<div class="span12">
-		<ul class="breadcrumb">
-			<li><a href="../catalog/index.php">Order Item</a> <span class="divider">|</span></li>
-			<li><a href="">Return / Exchange of Item</a> <span class="divider">|</span></li>
-			<li><a href="">Due Date of Item</a> <span class="divider">|</span></li>
-			<li class="active"><h4>My Cart</h4></li>
-		</ul>
-	   
-	</div>
-   </div> <!-- /.row -->
+    
    {% endblock %}
  </div> <!-- /.container fluid -->
      <!-- Footer
