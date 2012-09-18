@@ -24,23 +24,7 @@
 	    <p>{{product.details}}</p>
 	    <h3>Php {{product.price}}</h3>
 	    <br />
-	    <form action="" class="well form-horizontal">
-		<p>Add this item to your shopping cart.</p>
-			<label for="size">Size:</label>
-			<select name="size" id="size">
-				<option value="5">5</option>
-				<option value="6">6</option>
-			</select>
-			<label for="color">Color:</label>
-			<select name="color" id="color">
-				<option value="black">black</option>
-				<option value="brown">brown</option>			
-			</select>
-			<label for="quantity">Quantity</label>
-			<input type="text" value="1"/><br />
-			<input type="button" class="btn" value="add to cart"/>
-		</fieldset>
-	    </form>
+	    {% include "catalog/product_form.html" %}
           </div>
 	</div>
 </div>	
