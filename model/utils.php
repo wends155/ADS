@@ -51,6 +51,18 @@ class Util{
 		
 	}
 	
+	public static function getUser($id){
+		if($id){
+			$stmt = DB::query("SELECT `users`.`id`,`users`.`name`,`users`.`username`,
+									  `users`.`birthday`,`users`.`street`,`users`.`city`,
+									  `users`.`province` 
+							   FROM `users`
+							   WHERE `users`.`id`=$id 
+							   LIMIT 1;");
+			return $stmt->fetch(PDO::FETCH_ASSOC);
+		}
+	}
+	
 }
 
 ?>
