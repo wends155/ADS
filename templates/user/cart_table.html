@@ -17,10 +17,17 @@
 <td>{{item.quantity}}</td>
 <td>{{item.size}}</td>
 <td>{{item.color}}</td>
-<td>Php {{item.subtotal}}</td>
+<td class="align-right">Php {{item.subtotal}}</td>
 </tr>
 {% endfor %}
+<tr>
+	<td class="align-right" colspan="5">Total</td>
+	<td class="align-right"><strong class="total-price">Php {{cart.total}}</strong></td>
+</tr>
+<tr>
+	<td class="align-right" colspan="5">Downpayment(30%)</td>
+	<td class="align-right"><strong class="total-price">Php {{cart.downpayment}}</strong></td>
+</tr>
  </tbody>
 </table>
-<p>You have <strong id="count">{{cart.count}}</strong> product/s in your cart, at a total cost of <strong id="total-price">Php {{cart.total}}</strong></p>
-
+<p>Cart currently  has <strong id="count">{{cart.count}} items.</strong></p>

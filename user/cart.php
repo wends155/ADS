@@ -28,19 +28,23 @@ if($_GET['del'] >= 0){
 	unset($_SESSION['cart'][$id]);
 }
 
+
 $data = array(
 	'title' => 'Cart',
-	'catalog' => true,
+	'order' => true,
 	'user' => $user,
+	'cart_pill' => true,
 	'cart' => array('items' => $_SESSION['cart'], 'count' => count($_SESSION['cart'])),
-	'nav' => Util::getCat()
 );
 $total = 0;
 foreach($data['cart']['items'] as $item){
 	$total += $item['subtotal'];
 }
-$data['cart']['total'] = sprintf('%.2f',$total);
-
+//$data['cart']['total'] = sprintf('%.2f',$total);
+$data['cart']['total'] = number_format($total,2);
+$data['cart']['downpayment'] = number_format($total*0.30,2);
+$_SESSION['cart_total'] = $data['cart']['total'];
+$_SESSION['cart_downpayment'] = $data['cart']['downpayment'];
 echo $template->render($data);
 //print_r($data);
 
