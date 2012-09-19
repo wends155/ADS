@@ -1,7 +1,0 @@
-{% extends "base.html" %}
-{% block content %}
-<div class="row-fluid">	
-{% include "cat.html" %}	
-</div>
-
-{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">	
+<h1>Your Shopping Cart</h1>
+{% include "fragments/breadcrumb.html" %}
+</div>
+<p>Name: <strong>{{user.name}}</strong></p>
+<p>Address: {{user.street}}, {{user.city}}, {{user.province}} </p>
+{% if cart.items %}
+{% include "user/cart_table.html" %}	
+<br />
+<a href="/ADS/catalog/index.php" class="btn">Continue Shopping</a>
+<a href="#" class="btn btn-primary">Submit Order</a>
+
+{% else %}
+<h3>You dont have anything in your cart.</h3> <br />
+<a href="/ADS/catalog/index.php" class="btn">Continue Shopping</a>
+
+{% endif %}	
+
+
+{% endblock %}

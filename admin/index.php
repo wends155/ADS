@@ -1,19 +1,19 @@
 <?php
 session_start();
-if (!isset($_SESSION["manager"])) {
-    header("location: ../login.php"); 
+if (!trim($_SESSION["manager"])) {
+    header('location: /ADS/index.php'); 
     exit();
 }
 $managerID = preg_replace('#[^0-9]#i', '', $_SESSION["id"]); 
 $manager = preg_replace('#[^A-Za-z0-9]#i', '', $_SESSION["manager"]); 
 $password = preg_replace('#[^A-Za-z0-9]#i', '', $_SESSION["password"]); 
 // Connect to the MySQL database  
-include "config/connect_to_mysql.php"; 
-$sql = mysql_query("SELECT * FROM admin WHERE id='$managerID' AND username='$manager' AND password='$password' LIMIT 1"); // query the person
+require_once '../db_con/db.php'; 
+$sql = DB::query("SELECT * FROM admin WHERE id='$managerID' AND username='$manager' AND password='$password' LIMIT 1"); // query the person
 
 // ------- if the user exist in the database ---------
-$existCount = mysql_num_rows($sql); // count the row nums
-if ($existCount == 0) { // evaluate the count
+$existCount = $sql->fetch(); // count the row nums
+if (!$existCount) { // evaluate the count
 	 echo "Your login session data is not on record in the database.";
      exit();
 }
