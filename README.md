@@ -13,7 +13,10 @@ Todo List
 * SMS
 * Compute Downpayment of Dealers.
 * Generate Reports.
+	+ Inventory reportsy
+	+ Sales reports
+	+ daily/weekly/monthly/annual report.s
 * Add to cart. **done**
 * Inventory(Admin) list of available stocks.
 * delete category as well as subcategory & product.
-* Sizes and color and material.
+* Sizes and color and material. **done**
