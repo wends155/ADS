@@ -63,6 +63,10 @@ class Util{
 		}
 	}
 	
+	public static function adminAuth($username,$password){
+		
+	}
+	
 }
 
 ?>
