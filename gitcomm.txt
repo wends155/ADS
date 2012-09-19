@@ -1,0 +1,12 @@
+*  That will cause Git to make local branch foo track remote branch foo from upstream.
+
+	>	git branch --set-upstream foo upstream/foo
+	
+* Automatically track on push.
+
+	> 	git push -u origin foo
+	
+* create a copy of remote branch and checkout that branch.
+
+	>	git checkout -b test origin/test
+	
