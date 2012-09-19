@@ -1,5 +1,7 @@
-for JELAI, MARI, and FLOR
+Alima Direct Selling
 ==========================
+
+for Jelai, Mari and Flor capstone project
 
 Todo List
 ---------
