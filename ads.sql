@@ -1,275 +1,218 @@
--- MySQL dump 10.13  Distrib 5.1.37, for Win32 (ia32)
+-- phpMyAdmin SQL Dump
+-- version 3.2.0.1
+-- http://www.phpmyadmin.net
 --
--- Host: .    Database: ADS
--- ------------------------------------------------------
--- Server version	5.1.37
+-- Host: localhost
+-- Generation Time: Sep 18, 2012 at 09:38 PM
+-- Server version: 5.1.37
+-- PHP Version: 5.3.0
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+--
+-- Database: `ads`
+--
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `admin`
 --
 
-DROP TABLE IF EXISTS `admin`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `admin` (
+CREATE TABLE IF NOT EXISTS `admin` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `date` date NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `admin`
 --
 
-LOCK TABLES `admin` WRITE;
-/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES (4,'admin','admin','2012-05-21');
-/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `admin` (`id`, `username`, `password`, `date`) VALUES
+(4, 'admin', 'admin', '2012-05-21'),
+(11, 'johnrosemale', 'elamesor_11', '2012-07-29');
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `category`
 --
 
-DROP TABLE IF EXISTS `category`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `category` (
+CREATE TABLE IF NOT EXISTS `category` (
   `cat_id` int(50) NOT NULL AUTO_INCREMENT,
   `category_name` varchar(100) NOT NULL,
   `details` text NOT NULL,
-  `price` varchar(100) NOT NULL,
   `date_added` date NOT NULL,
   PRIMARY KEY (`cat_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=137 ;
 
 --
 -- Dumping data for table `category`
 --
 
-LOCK TABLES `category` WRITE;
-/*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (43,'iPhone','already fix it i\'ll try this if it is working . . . hopefully it will be fine and remain on his original size hahahha ^_^','','2012-06-26'),(35,'Boardwalk','Your Fashion, Our Business\r\nweeh !','','2012-06-09'),(36,'Marikina Shoe Exchange (MSE)','TARA! Kumita Kasama ang MSE','','2012-06-12');
-/*!40000 ALTER TABLE `category` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `category` (`cat_id`, `category_name`, `details`, `date_added`) VALUES
+(130, 'Natasha', 'Natasha Products', '2012-08-09'),
+(127, 'Avon', 'All about Avon.', '2012-08-08'),
+(128, 'Personal Collection (PC)', 'Personal Collection Products', '2012-08-09'),
+(131, 'Ever Bilena', 'Ever Bilena Collection', '2012-08-09'),
+(136, 'Marikina Shoe Exchange (MSE)', 'All about MSE products ... ', '2012-09-07');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `contact`
+-- Table structure for table `orders`
 --
 
-DROP TABLE IF EXISTS `contact`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `contact` (
-  `contactID` int(30) NOT NULL AUTO_INCREMENT,
-  `contactnum` varchar(30) NOT NULL,
-  `dealerID` int(30) NOT NULL,
-  PRIMARY KEY (`contactID`),
-  UNIQUE KEY `dealerID` (`dealerID`),
-  UNIQUE KEY `dealerID_2` (`dealerID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+CREATE TABLE IF NOT EXISTS `orders` (
+  `orderID` int(25) NOT NULL AUTO_INCREMENT,
+  `dealerID` int(25) NOT NULL,
+  `orderDate` date NOT NULL,
+  `instructions` text NOT NULL,
+  PRIMARY KEY (`orderID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `contact`
+-- Dumping data for table `orders`
 --
 
-LOCK TABLES `contact` WRITE;
-/*!40000 ALTER TABLE `contact` DISABLE KEYS */;
-/*!40000 ALTER TABLE `contact` ENABLE KEYS */;
-UNLOCK TABLES;
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `franchiser`
+-- Table structure for table `order_items`
 --
 
-DROP TABLE IF EXISTS `franchiser`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `franchiser` (
-  `franchiserID` int(10) NOT NULL AUTO_INCREMENT,
-  `fname` varchar(50) NOT NULL,
-  `lname` varchar(50) NOT NULL,
-  `address` varchar(100) NOT NULL,
-  `contactID` varchar(50) NOT NULL,
-  `id` int(50) NOT NULL,
-  PRIMARY KEY (`franchiserID`),
-  UNIQUE KEY `contactID` (`contactID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+CREATE TABLE IF NOT EXISTS `order_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(50) NOT NULL,
+  `product_id` int(50) NOT NULL,
+  `product_qty` int(50) NOT NULL,
+  `product_price` decimal(10,0) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `franchiser`
+-- Dumping data for table `order_items`
 --
 
-LOCK TABLES `franchiser` WRITE;
-/*!40000 ALTER TABLE `franchiser` DISABLE KEYS */;
-/*!40000 ALTER TABLE `franchiser` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `product_qty`, `product_price`) VALUES
+(1, 0, 0, 0, '0');
 
---
--- Table structure for table `manufacturer`
---
-
-DROP TABLE IF EXISTS `manufacturer`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `manufacturer` (
-  `manufacturerID` int(50) NOT NULL AUTO_INCREMENT,
-  `manufacturerCompName` varchar(50) NOT NULL,
-  `id` int(50) NOT NULL,
-  PRIMARY KEY (`manufacturerID`),
-  UNIQUE KEY `id` (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `manufacturer`
---
-
-LOCK TABLES `manufacturer` WRITE;
-/*!40000 ALTER TABLE `manufacturer` DISABLE KEYS */;
-/*!40000 ALTER TABLE `manufacturer` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `order`
---
-
-DROP TABLE IF EXISTS `order`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `order` (
-  `orderID` int(11) NOT NULL AUTO_INCREMENT,
-  `dealerID` int(11) NOT NULL,
-  `orderNum` int(11) NOT NULL,
-  `orderDate` datetime NOT NULL,
-  `orderQty` int(11) NOT NULL,
-  PRIMARY KEY (`orderID`),
-  UNIQUE KEY `dealerID` (`dealerID`),
-  UNIQUE KEY `dealerID_2` (`dealerID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `order`
---
-
-LOCK TABLES `order` WRITE;
-/*!40000 ALTER TABLE `order` DISABLE KEYS */;
-/*!40000 ALTER TABLE `order` ENABLE KEYS */;
-UNLOCK TABLES;
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `product`
 --
 
-DROP TABLE IF EXISTS `product`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `product` (
+CREATE TABLE IF NOT EXISTS `product` (
   `id` int(25) NOT NULL AUTO_INCREMENT,
-  `cat_id` int(100) NOT NULL,
   `product_name` varchar(80) NOT NULL,
-  `price` varchar(50) NOT NULL,
-  `qty` int(100) NOT NULL,
   `details` varchar(100) NOT NULL,
-  `category` varchar(50) NOT NULL,
-  `subcategory` varchar(50) NOT NULL,
-  `date_added` date NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `product_name` (`product_name`),
-  UNIQUE KEY `product_name_2` (`product_name`)
-) ENGINE=MyISAM AUTO_INCREMENT=68 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `price` decimal(50,2) DEFAULT NULL,
+  `qty` int(100) NOT NULL,
+  `date` date NOT NULL,
+  `subcategory_id` int(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=125 ;
 
 --
 -- Dumping data for table `product`
 --
 
-LOCK TABLES `product` WRITE;
-/*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (62,0,'i hate love story ','890',9,'kjkfjdk','','','2012-06-07'),(63,0,'xoxoxo','678',5,'hahahhaha','','','2012-06-12'),(64,0,'yoy','1000',1,'my cattery','','','2012-06-15'),(67,0,'MIHO','8999',1,'my girlfriend is a gumiho','','','2012-06-30'),(66,0,'Rosemale','900',800,'Ahaha','','','2012-06-23');
-/*!40000 ALTER TABLE `product` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `product` (`id`, `product_name`, `details`, `price`, `qty`, `date`, `subcategory_id`) VALUES
+(115, 'Uptight', 'Blouse', '500.00', 7, '0000-00-00', 30),
+(116, 'Tribute', 'Blouse Color: off-white, pink(pow)', '465.00', 6, '0000-00-00', 30),
+(114, 'Flex', 'Man-made Leather, Sole Rubber, Sizes: 50-90 Color: White', '1180.00', 15, '0000-00-00', 54),
+(117, 'Atom', 'Semi Body Fit Sizes: s, m, l, xl Color: white', '550.00', 4, '0000-00-00', 31),
+(118, 'Baby Love', 'Sizes: S, M, L Color: red, white (REW)', '495.00', 2, '0000-00-00', 34),
+(119, 'Josie', 'Multi-color underwear', '128.00', 3, '0000-00-00', 29),
+(120, 'Assasin', 'szes: s, m, l, xl. color: black, navy blue, white (WNB)', '320.00', 5, '0000-00-00', 40),
+(121, 'Keziah', 'Blouse Size: Small, Large, XLarge', '321.00', 4, '0000-00-00', 30),
+(123, 'Asprey', 'Size/s: S, M, L, XL', '400.00', 4, '0000-00-00', 30),
+(124, 'BURKE', 'Semi-Body Fit\r\nSize/s: S, M, L, XL\r\nColor: black', '500.00', 2, '0000-00-00', 31),
+(110, 'Like', 'Ladies Hand Bag', '782.00', 4, '0000-00-00', 53),
+(109, 'Secret Fantasy', 'Body Spray', '800.00', 12, '0000-00-00', 27),
+(108, 'Sweet Honesty', 'Purse Concentrate 50mL', '234.00', 10, '0000-00-00', 25),
+(111, 'Imari Mystique', 'Hand and Body Lotion 150 mL', '119.00', 3, '0000-00-00', 25),
+(112, 'Liwanag', 'Upper: Man-made Leather\r\nSole: pu\r\nHeel height: 2 1/2"\r\nSize: 50-90\r\ncolor: Black', '695.00', 8, '0000-00-00', 54),
+(113, 'Orca', 'Skinny Jeans\r\nSizes: 26" - 32", 34"', '995.00', 3, '0000-00-00', 55);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `sales`
 --
 
-DROP TABLE IF EXISTS `sales`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `sales` (
+CREATE TABLE IF NOT EXISTS `sales` (
   `salesID` int(50) NOT NULL AUTO_INCREMENT,
   `remarks` varchar(50) NOT NULL,
   `id` int(50) NOT NULL,
   PRIMARY KEY (`salesID`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `sales`
 --
 
-LOCK TABLES `sales` WRITE;
-/*!40000 ALTER TABLE `sales` DISABLE KEYS */;
-/*!40000 ALTER TABLE `sales` ENABLE KEYS */;
-UNLOCK TABLES;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `subcategory`
 --
 
-DROP TABLE IF EXISTS `subcategory`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `subcategory` (
-  `id` int(100) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `subcategory` (
+  `sub_id` int(100) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `category_id` int(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  PRIMARY KEY (`sub_id`),
+  KEY `subcategory` (`category_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=57 ;
 
 --
 -- Dumping data for table `subcategory`
 --
 
-LOCK TABLES `subcategory` WRITE;
-/*!40000 ALTER TABLE `subcategory` DISABLE KEYS */;
-/*!40000 ALTER TABLE `subcategory` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `subcategory` (`sub_id`, `name`, `category_id`) VALUES
+(28, 'Avon Make-Up', 127),
+(27, 'Avon Fragrance', 127),
+(26, 'Avon Personal Care', 127),
+(30, 'Natasha Ladies Wear', 130),
+(25, 'Avon Skin Care', 127),
+(29, 'Avon Intimate Apparel', 127),
+(31, 'Natasha Mens Wear', 130),
+(32, 'Renee Salud Collection', 130),
+(33, 'Natasha Beauty', 130),
+(34, 'Natasha Kids', 130),
+(36, 'PC Home Care', 128),
+(37, 'PC Health Care', 128),
+(43, 'TRU Wear', 130),
+(44, 'Ever Bilena Mens Fragrance', 131),
+(45, 'Ever Bilena Ladies Fragrance', 131),
+(46, 'Ever Bilena Advance', 131),
+(47, 'Careline', 131),
+(48, 'Ever Bilena Beauty', 131),
+(53, 'Sundance Ladies Wear', 135),
+(54, 'MSE Footwear', 136),
+(55, 'MSE Denim', 136);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` mediumtext NOT NULL,
+  `birthday` date NOT NULL,
   `date` date NOT NULL,
   `street` varchar(100) NOT NULL,
   `city` varchar(100) NOT NULL,
@@ -280,26 +223,16 @@ CREATE TABLE `users` (
   `bio` text NOT NULL,
   `status` enum('Single','Married','Widowed') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=76 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=135 ;
 
 --
 -- Dumping data for table `users`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (72,'Florefie Remedios','florefie','36ffa98ff34c2b49979fa7b8f224d75d','2012-06-20','san vicente','Panabo City','Davao del Norte','0934568778','Female','Filipino','skdjksjdks','Single'),(71,'Paul Wesley','paul','a09f91f8be77e65b371a64bf1d8305c9','2012-06-20','sdksjkdsjkdk','lkdlsdksl','lklklsdkflkdl','09128559617','Male','kfldkfldkfdl','skalkslkalskla','Married'),(69,'Rosemale-John II','rosemalejohn','0f63001c087a7fadcbcad219fa62358a','2012-06-18','Quezon','Panabo City','Davao del Norte','09128564110','Male','Filipino','Techie.','Single'),(70,'Dovina Rose Villacorta','dovina','a34e03ee7659c2fff0a2cbfd6760b36b','2012-06-20','jadkjdkjs','kjkjdksjdksjk','skdlskdlksl','09128559617','Female','ksdjskjdks','jkjskjkjkjsd','Single'),(66,'virginia villacorta','virginia','61e1f08a425cb79a18c3f6224011ab74','2012-06-13','Quezon St.','Panabo City','Davao del Norte','09103235491','Female','fgfgg','hhh','Married'),(68,'Adolfo Perez','adolfo','10b28c9abf3a62e9dcb63da27a7186d8','2012-06-17','skdkdjsk','jksjdksjksjksjdsk','jskdfjk','98989','Male','dfdfdfd','dfdffdfd','Widowed'),(67,'Rosemarie Villacorta','mahree','6228507dcce6751bf9e392ee9332a1e8','2012-06-13','Quezon St.','Panabo City','Davao del Norte','09306673054','Female','Filipino','hahhaha','Single'),(73,'adolfo villacorta','adolfo','10b28c9abf3a62e9dcb63da27a7186d8','2012-06-20','jdksjdksjkdjk','kjskdjkjskjk','jkjkdsjkfksj','09234788888','Male','jdksjdkjskjdks','sldksldksjdksk','Married'),(75,'Jellene Pastoral','jelai','ba1f4f88f52b8acc1d331611f4be6816','2012-06-26','kjskkdjdjksk','kjkdjskjdks','jkjdksdjksjk','lkfldkfldkfdlkl','Female','jdkjdkjskdskj','kjkjksjkjrke','Single');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2012-07-03 11:46:02
+INSERT INTO `users` (`id`, `name`, `username`, `password`, `birthday`, `date`, `street`, `city`, `province`, `cnum`, `gender`, `nationality`, `bio`, `status`) VALUES
+(127, 'Rosemarie Villacorta', 'mahree', '6228507dcce6751bf9e392ee9332a1e8', '0000-00-00', '2012-09-03', 'Quezon Street', 'Panabo City', 'Davao del Norte', '09306673054', 'Female', 'Filipino', 'better to know me well :)) hahah ...', 'Single'),
+(107, 'Jellene Pastoral', 'jelai', '1c8e5ae4e6dbb61b56dddbccfc03d935', '0000-00-00', '2012-08-13', 'Jose abad santos', 'Panabo City', 'Davao del Norte', '09476922154', 'Female', 'Filipino', 'beautiful :P', 'Married'),
+(131, 'Elena Gilbert', 'elena', 'e14c4ec12adad2f00980d8da23864c97', '0000-00-00', '2012-09-04', 'Catherine St.,', 'New York', 'USA', '09287798299', 'Female', 'Bulgarian', 'Likes: Adventurous Person, TVD Series, Bugatti Mc Clarence Cars, Ice Cream ^^', ''),
+(105, 'Rosemale-John Villacorta', 'rosemalejohn', '0f63001c087a7fadcbcad219fa62358a', '0000-00-00', '2012-08-07', 'Quezon Street', 'Panabo City', 'Davao del Norte', '09103235491', 'Male', 'Filipino', '"Sorry for the inconvenience, Brain is under construction."', 'Single'),
+(123, 'maxwell chavez maluenda', 'maxwell', '2a7d544ccb742bd155e55c796de8e511', '0001-01-01', '2012-09-03', 'budbud', 'davao', 'davao del sur', '09129126200', 'Male', 'Filipino', 'testingggg', 'Single'),
+(128, 'Apple Jean Y. Constancio', 'apple', '3d682a9968ca50cb9fb7e0c109de2179', '1990-09-09', '2012-09-04', 'Rempohito subdivsion', 'Panabo City', 'Davao del norte', '09487846461', 'Female', 'Filipino', 'simple', 'Single');

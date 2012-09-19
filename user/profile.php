@@ -111,7 +111,7 @@ while($row = mysql_fetch_array($sql)){
                       <li class="divider"></li>
                       <li class="nav-header">Other Menu</li>
 					  <li><a href="profile.php"><i class="icon-cog"></i> Settings</a></li>
-					  <li><a href="../logout.php"><i class="icon-off"></i> Sign Out</a></li>
+					  <li><a href="../logout.php"><i class="icon-off"></i> Sign out</a></li>
                     </ul>
                   </li>
             </ul>

@@ -1,8 +1,7 @@
 <?php
 session_start();
 if (!$_SESSION['id']){
-	header('Location: /ADS/index.php');
-	
+	header('Location: /ADS/index.php');	
 }
 require_once '../db_con/template.php';
 require_once '../model/utils.php';

@@ -109,7 +109,7 @@ while($row = mysql_fetch_array($sql)){
 					  <li class="divider"></li>
                       <li class="nav-header">Other Menu</li>
 					  <li><a href="../user/profile.php"><i class="icon-cog"></i> Settings</a></li>
-					  <li><a href="../logout.php"><i class="icon-off"></i> Sign Out</a></li>
+					  <li><a href="../logout.php"><i class="icon-off"></i> Sign out</a></li>
                     </ul>
                   </li>
             </ul>	 
@@ -174,7 +174,7 @@ while($row = mysql_fetch_array($sql)){
 											 $product_name = $row["product_name"];
 											 $price = $row["price"];
 											echo "<tr>";
-											echo "<td><a href='../catalog/order.php?id=$id'>$product_name</a></td>";
+											echo "<td><a href='../catalog/product.php?id=$id'>$product_name</a></td>";
 											echo "<td>P $price</td>";
 											echo "</tr>";
 											echo "</tbody>";
@@ -214,7 +214,7 @@ while($row = mysql_fetch_array($sql)){
 											 $id = $row["id"];
 											 $product_name = $row["product_name"];
 											echo "<br>";										
-											echo "&nbsp;<td><a href='../catalog/order.php?id=$id'>$product_name</a></td>";
+											echo "&nbsp;<td><a href='../catalog/product.php?id=$id'>$product_name</a></td>";
 									}
 								}
 							?>
@@ -392,10 +392,20 @@ while($row = mysql_fetch_array($sql)){
 					  </div>
 					  <div class="item">
 							<div class="thumbnail">
+								<img src="../img/avon.jpg" alt="">
+							</div>
+					  </div>
+					  <div class="item">
+							<div class="thumbnail">
 								<img src="../img/ds.jpg" alt="">
 								<div class="carousel-caption">
 								  <p>Quality begins on the inside... and then works its way out.</p>
 								</div>
+							</div>
+					  </div>
+					  <div class="item">
+							<div class="thumbnail">
+								<img src="../img/mse.jpg" alt="">
 							</div>
 					  </div>
 					  <div class="item">
@@ -408,7 +418,17 @@ while($row = mysql_fetch_array($sql)){
 					  </div>
 					  <div class="item">
 							<div class="thumbnail">
+								<img src="../img/natasha.jpg" alt="">
+							</div>
+					  </div>
+					  <div class="item">
+							<div class="thumbnail">
 								<img src="../img/ADSELL.png" alt="">
+							</div>
+					  </div>
+					  <div class="item">
+							<div class="thumbnail">
+								<img src="../img/ever-bilena.jpg" alt="">
 							</div>
 					  </div>
 					</div>
