@@ -95,7 +95,7 @@ while($row = mysql_fetch_array($sql)){
                 <a class="brand" href="../user/index.php"><img src="../img/ADSELL_png.png" height="35" width="80"></a>
               </li>
 			  <li><a href="../catalog/index.php"><img src="../img/catalog.png"><b> Catalog</b></a></li>
-			  <li><a href="../order/index.php"><img src="../img/cart.png"><b> Orders</b></a></li>
+			  <li><a href="../order/orders.php"><img src="../img/cart.png"><b> Orders</b></a></li>
             </ul>	
 			<ul class="nav pull-right">
                   <li id="fat-menu" class="dropdown">

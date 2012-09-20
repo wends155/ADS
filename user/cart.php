@@ -40,11 +40,12 @@ $total = 0;
 foreach($data['cart']['items'] as $item){
 	$total += $item['subtotal'];
 }
+$downpayment = $total*0.3;
 //$data['cart']['total'] = sprintf('%.2f',$total);
 $data['cart']['total'] = number_format($total,2);
-$data['cart']['downpayment'] = number_format($total*0.30,2);
-$_SESSION['cart_total'] = $data['cart']['total'];
-$_SESSION['cart_downpayment'] = $data['cart']['downpayment'];
+$data['cart']['downpayment'] = number_format($downpayment,2);
+$_SESSION['cart_total'] = $total;
+$_SESSION['cart_downpayment'] = $downpayment;
 echo $template->render($data);
 //print_r($data);
 

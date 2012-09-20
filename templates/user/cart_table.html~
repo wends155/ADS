@@ -12,7 +12,7 @@
  <tbody>
 {% for item in cart.items %}
 <tr>
-<td>{{item.name}} <a href="cart.php?del={{item.key}}"><i class="icon-remove"></i></a></td>
+<td>{{item.name}} <a class="del" href="cart.php?del={{item.key}}"><i class="icon-remove"></i></a></td>
 <td>{{item.price}}</td>
 <td>{{item.quantity}}</td>
 <td>{{item.size}}</td>
@@ -30,4 +30,4 @@
 </tr>
  </tbody>
 </table>
-<p>Cart currently  has <strong id="count">{{cart.count}} item/s.</strong></p>
+<p>Cart currently  has <strong id="count">{{cart.count}} {{cart.count>1 ? "items" : "item"}}.</strong></p>
