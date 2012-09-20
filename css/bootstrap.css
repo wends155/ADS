@@ -821,7 +821,6 @@ select:focus {
 }
 .input-small {
   width: 90px;
-  height: 30px; /* i put something height pra modaku ang textfield in input-small */
 }
 .input-medium {
   width: 150px;

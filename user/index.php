@@ -108,8 +108,9 @@ while($row = mysql_fetch_array($sql)){
 					  </li>
 					  <li class="divider"></li>
                       <li class="nav-header">Other Menu</li>
+					  <li><a href="../user/cart.php"><i class="icon-shopping-cart"></i> View Shopping Cart</a></li>
 					  <li><a href="../user/profile.php"><i class="icon-cog"></i> Settings</a></li>
-					  <li><a href="../logout.php"><i class="icon-off"></i> Sign out</a></li>
+					  <li><a href="../logout.php"><i class="icon-off"></i> Sign out <?php echo $_SESSION['username']; ?></a></li>
                     </ul>
                   </li>
             </ul>	 
