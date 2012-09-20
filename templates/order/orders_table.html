@@ -1,0 +1,39 @@
+<table class="table table-striped table-bordered">
+<thead>
+ <tr>
+  <th>Order Date</th>
+  <th>Order ID</th>
+  <th>Total</th>
+  <th>Details</th>
+  <th>Downpayment</th>
+  <th>Balance</th>
+  <th>Date Paid</th>
+  <th>Date Claimed</th>
+  <th>Due Date</th>
+ </tr>
+</thead>
+<tbody>
+  <tr>
+  	<td>9/20/2012</td>
+	<td>23123</td>
+	<td>1,234.00</td>
+	<td>{% include "order/order_details_table.html" %}</td>
+	<td>122.00</td>
+        <td>100.00</td>
+	<td>Not yet</td>
+	<td>Not yet</td>
+	<td>10/20/2012</td>
+  </tr>
+  <tr>
+  	<td>9/20/2012</td>
+	<td>23123</td>
+	<td>1,234.00</td>
+	<td>{% include "order/order_details_table.html" %}</td>
+	<td>122.00</td>
+        <td>100.00</td>
+	<td>9/20/2012</td>
+	<td>9/10/2012</td>
+	<td>10/20/2012</td>
+  </tr>
+</tbody>
+</table>

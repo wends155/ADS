@@ -9,6 +9,10 @@ require_once '../model/utils.php';
 
 $template = Template::load('order/orders.html');
 $user = Util::getUser($_SESSION['id']);
+//$_SESSION['user'] = $user;
+
+
+
 
 $navigation = array(
 	'order' => true,

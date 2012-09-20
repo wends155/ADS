@@ -3,9 +3,6 @@
 <div class="row">	
 {% include "order/order_nav_pill.html" %}
 </div>
-<p>Name: <strong>{{user.name}}</strong></p>
-<p>Address: {{user.street}}, {{user.city}}, {{user.province}} </p>
-<br />
 {% include "order/orders_table.html" %}
 
 <ul class="pager">
