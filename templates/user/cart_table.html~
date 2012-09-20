@@ -30,4 +30,4 @@
 </tr>
  </tbody>
 </table>
-<p>Cart currently  has <strong id="count">{{cart.count}} {{cart.count>1 ? "items" : "item"}}.</strong></p>
+<p>Cart currently  has <strong id="count">{{cart.count}} item/s.</strong></p>
