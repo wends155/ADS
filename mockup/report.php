@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/x-pdf');
-header("Content-Disposition: inline; filename=invoice-". date("Y-m-d-H-i") . ".pdf");
+header("Content-Disposition: attachment;filename=invoice.pdf");
 header("Cache-Control: no-cache, must-revalidate");
 
 
@@ -16,5 +16,6 @@ $page->setFont($font,12);
 $page->drawText('wewe',110,641);
 //echo $page->getHeight();
 //echo $page->getWidth();
-//echo $pdf->render();
+$pdf->save("report2.pdf");
+header('Location: report2.pdf');
 ?>
