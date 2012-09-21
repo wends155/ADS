@@ -9,6 +9,7 @@ $order = $stmt->fetch(PDO::FETCH_ASSOC);
 echo Time::dateDaysFromDate("2012-09-20",30) . "\n";
 echo Time::dateDaysFromNow(30) . "\n";
 echo Time::unixToDate(time()) . "\n";
+echo Time::dateToUnix("0000-00-00") . " - 0000-00-00\n";
 echo Time::dbTimestampToFormat($order['date']);
 print_r( Time::dbTimestampToArray($order['date']));
 ?>

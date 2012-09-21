@@ -9,7 +9,7 @@
 {% include "user/cart_table.html" %}	
 <br />
 <a href="/ADS/catalog/index.php" class="btn"><i class="icon-shopping-cart"></i> Continue Shopping</a>
-<a href="/ADS/order/orders.php?count={{cart.count}}" class="btn btn-primary"><i class="icon-tags"></i> Submit Order</a>
+<a href="/ADS/order/orders.php?count={{cart.count}}" class="btn btn-primary"><i class="icon-tags icon-white"></i> Submit Order</a>
 
 {% else %}
 <h3>You dont have anything in your cart.</h3> <br />

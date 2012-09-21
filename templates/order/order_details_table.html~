@@ -11,24 +11,17 @@
   </tr>
  </thead>
  <tbody>
+   {% for detail in order.details %}
    <tr>
-   	<td>adwer</td>
+   	<td>{{}}</td>
    	<td>wrty</td>
    	<td>wert</td>
    	<td>wret</td>
    	<td>wert</td>
    	<td>34</td>
-        <td><a href="/ADS/order/return.php">return</a></td>
+        <td><a href="/ADS/order/return.php?order_item=4">return</a></td>
    </tr>
-   <tr>
-   	<td>adwer</td>
-   	<td>wrty</td>
-   	<td>wert</td>
-   	<td>wret</td>
-   	<td>wert</td>
-   	<td>34</td>
-        <td><a href="/ADS/order/return.php">return</a></td>
-   </tr>   
+   {% endfor %}
  </tbody>
 </table>
 

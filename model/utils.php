@@ -67,6 +67,60 @@ class Util{
 		
 	}
 	
+	public static function getOrder($dealer_id){
+		$stmt = DB::query("select * from `orders` where `dealer_id`=$dealer_id Order by date DESC");
+		return $stmt->fetchall(PDO::FETCH_ASSOC);
+	}
+	
+	public static function getOrderDetails($order_id){
+		$stmt = DB::query("select * from `order_items` where `order_id`=$order_id");
+		return $stmt->fetchall(PDO::FETCH_ASSOC);
+	}
+	
+	public static function getOrders($dealer_id){
+		$orders = self::getOrder($dealer_id);
+		foreach($orders as &$order){
+			$detail = self::getOrderDetails($order['id']);
+			$order['details'] = $detail;
+		}
+		return $orders;
+	}
+	
+	public static function insertOrderItem($cart, $order_id){
+		$sql = "INSERT INTO `order_items`(`prod_id`, `prod_name`, `price`, `quantity`, `size`, `color`, `subtotal`, `order_id`)
+				VALUES (:prod_id, :prod_name, :price,:quantity, :size, :color, :subtotal, :order_id)";
+		$stmt = DB::prepare($sql);
+		
+		foreach($cart as $item){
+			$data = array(
+				'prod_id' => $item['id'],
+				'prod_name' => $item['name'],
+				'price' => $item['price'],
+				'quantity' => $item['quantity'],
+				'size' => $item['size'],
+				'color' => $item['color'],
+				'subtotal' => $item['subtotal'],
+				'order_id' => $order_id
+			);
+			
+			$stmt->execute($data);
+		}
+		return true;
+	}
+	
+	public static function insertOrder($session){
+		$dealer_id = $session['id'];
+		$order_total = $session['cart_total'];
+		$order_down = $session['cart_downpayment'];
+		$cart = $session['cart'];
+		$balance = $order_total;
+		$insert = DB::exec("Insert into `orders`(`dealer_id`, `total`,`downpayment`, `balance`) 
+								VALUES ('$dealer_id', '$order_total', '$order_down', '$balance')");
+		$order_id = DB::lastInsertId();
+		$success = self::insertOrderItem($cart, $order_id);
+		return $success;
+	}
 }
+
 
 ?>

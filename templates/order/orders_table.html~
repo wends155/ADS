@@ -13,27 +13,19 @@
  </tr>
 </thead>
 <tbody>
+{% for order in orders_content %}
   <tr>
-  	<td>9/20/2012</td>
-	<td>23123</td>
-	<td>Php 1,234.00</td>
+  	<td>{{order.date}}</td>
+	<td>{{order.id}}</td>
+	<td>{{order.total}}</td>
 	<td>{% include "order/order_details_table.html" %}</td>
-	<td>122.00</td>
-        <td>100.00</td>
-	<td>Not yet</td>
-	<td>Not yet</td>
-	<td>10/20/2012</td>
+	<td>{{order.downpayment}}</td>
+        <td>{{order.balance}}</td>
+	<td>{{order.date_paid=="0000-00-00" ? "Not Yet" : order.date_paid}}</td>
+	<td>{{order.date_claimed=="0000-00-00" ? "Not Yet" : order.date_claimed}}</td>
+	<td>{{order.due}}</td>
   </tr>
-  <tr>
-  	<td>9/20/2012</td>
-	<td>23123</td>
-	<td>Php 1,234.00</td>
-	<td>{% include "order/order_details_table.html" %}</td>
-	<td>122.00</td>
-        <td>100.00</td>
-	<td>9/20/2012</td>
-	<td>9/10/2012</td>
-	<td>10/20/2012</td>
-  </tr>
+{% endfor %}
+ 
 </tbody>
 </table>
