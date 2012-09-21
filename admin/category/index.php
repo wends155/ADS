@@ -5,7 +5,7 @@ if (!isset($_SESSION["manager"])) {
     exit();
 }
 // Connect to the MySQL database  
-include "../config/connect_to_mysql.php"; 
+include "../../db_con/connect_to_mysql.php"; 
 ?>
 <?php 
 // ADD CATEGORY
@@ -381,8 +381,8 @@ if (isset($_POST['details'])) {
 				<?php
 					// whole list of viewing the category stored on the database
 					try {
-						require_once "../config/config.php";
-						$stmt = $conn->query("SELECT * FROM category ORDER BY cat_id DESC");
+						require_once "../../db_con/db.php";
+						$stmt = DB::query("SELECT * FROM category ORDER BY cat_id DESC");
 						$res = $stmt->fetchall(PDO::FETCH_ASSOC);	
 						foreach($res as $row){
 							$cat_id = $row["cat_id"];

@@ -5,7 +5,7 @@ if (!isset($_SESSION["manager"])) {
     exit();
 }
 // Connect to the MySQL database  
-include "../config/connect_to_mysql.php"; 
+include "../../db_con/connect_to_mysql.php"; 
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -4,7 +4,7 @@ if (!isset($_SESSION["manager"])) {
     header("location: /ADS/index.php"); 
     exit();
 }
-include "../config/connect_to_mysql.php"; 
+include "../../db_con/connect_to_mysql.php"; 
 ?>
 <!DOCTYPE html>
 <html lang="en">
