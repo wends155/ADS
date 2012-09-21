@@ -1,5 +1,6 @@
 <?php
 require_once "../db_con/db.php";
+require_once "time.php";
 
 class Util{
 	public static function getCat(){
