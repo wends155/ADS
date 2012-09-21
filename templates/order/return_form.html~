@@ -1,0 +1,32 @@
+<form action="/ADS/order/exchange.php" class="form-horizontal" method="post">
+<fieldset>
+<legend>Exchange Form</legend>
+
+<div class="control-group">
+<label for="product" class="control-label">Product:</label>
+
+<div class="controls">
+<input type="text" class="input-xlarge disabled" name="prod_name" value="{{item.prod_name}}" disabled/>
+</div>
+</div>
+
+<div class="control-group">
+<label for="size" class="control-label">Size:</label>
+<div class="controls">
+<input type="text" name="size" class="input-xlarge" value={{item.size}} />
+</div>
+</div>
+
+<div class="control-group">
+<label for="color" class="control-label">Color:</label>
+<div class="controls">
+<input type="text" name="color" class="input-xlarge" value={{item.color}} />
+</div>
+</div>
+
+<div class="form-actions">
+<input type="submit" class="btn btn-primary"  />
+<a href="/ADS/order/orders.php" class="btn">Cancel</a>
+</div>
+</fieldset>
+</form>

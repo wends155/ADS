@@ -86,6 +86,12 @@ class Util{
 		return $orders;
 	}
 	
+	public static function getOrderItem($id){
+		$sql = "SELECT * FROM `order_items` where `id` = $id LIMIT 1";
+		$stmt = DB::query($sql);
+		return $stmt->fetch(PDO::FETCH_ASSOC);
+	}
+	
 	public static function insertOrderItem($cart, $order_id){
 		$sql = "INSERT INTO `order_items`(`prod_id`, `prod_name`, `price`, `quantity`, `size`, `color`, `subtotal`, `order_id`)
 				VALUES (:prod_id, :prod_name, :price,:quantity, :size, :color, :subtotal, :order_id)";
@@ -119,6 +125,18 @@ class Util{
 		$order_id = DB::lastInsertId();
 		$success = self::insertOrderItem($cart, $order_id);
 		return $success;
+	}
+	
+	public static function updateOrderItem($id, $size,$color){
+		$sql = "UPDATE `order_items` SET `size`=:size, `color`=:color where `id`=:id";
+		$stmt = DB::prepare($sql);
+		$data = array(
+			'size' => $size,
+			'color' => $color,
+			'id' => $id
+		);
+		
+		$stmt->execute($data);
 	}
 }
 
