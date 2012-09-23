@@ -1,0 +1,13 @@
+create table profiles(
+id integer not null primary key,
+fname text not null,
+lname text not null,
+mname text not null,
+birthday text,
+address text, 
+gender text, 
+nationality text, 
+bio text,
+status text,
+user_id integer not null references user( id) 
+);

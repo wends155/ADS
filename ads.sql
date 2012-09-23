@@ -86,7 +86,7 @@ CREATE TABLE `order_items` (
   `subtotal` decimal(50,2) NOT NULL,
   `order_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,7 +95,7 @@ CREATE TABLE `order_items` (
 
 LOCK TABLES `order_items` WRITE;
 /*!40000 ALTER TABLE `order_items` DISABLE KEYS */;
-INSERT INTO `order_items` VALUES (1,0,'burke','120.30',1,'weewe','sdfsdf','1212.00',2),(2,0,'sdgfsd','320.00',2,'sfsfd','asfsdf','1234.43',2),(3,124,'BURKE','500.00',1,'Small','black','500.00',3),(4,124,'BURKE','500.00',1,'Small','black','500.00',3),(5,124,'BURKE','500.00',1,'','','500.00',4),(6,121,'Keziah','321.00',1,'','','321.00',4),(7,124,'BURKE','500.00',1,'','','500.00',5),(8,121,'Keziah','321.00',1,'','','321.00',5),(9,124,'BURKE','500.00',1,'','','500.00',6),(10,121,'Keziah','321.00',1,'','','321.00',6),(11,124,'BURKE','500.00',1,'','','500.00',7),(12,121,'Keziah','321.00',1,'','','321.00',7),(13,109,'Secret Fantasy','800.00',1,'','','800.00',8),(14,121,'Keziah','321.00',1,'','','321.00',9);
+INSERT INTO `order_items` VALUES (1,121,'Keziah','321.00',1,'Small','Pink','321.00',1),(2,124,'BURKE','500.00',1,'','','500.00',2);
 /*!40000 ALTER TABLE `order_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -118,7 +118,7 @@ CREATE TABLE `orders` (
   `due` date NOT NULL,
   PRIMARY KEY (`id`),
   KEY `dealer_id` (`dealer_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,7 +127,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,0,'0.00','0000-00-00 00:00:00','0.00','0.00','2012-09-20','0000-00-00','0000-00-00'),(2,131,'100.00','2012-09-20 09:05:41','3123.00','123.00','0000-00-00','0000-00-00','0000-00-00'),(3,131,'821.00','2012-09-21 02:58:57','246.30','821.00','0000-00-00','0000-00-00','0000-00-00'),(4,131,'821.00','2012-09-21 03:24:24','246.30','821.00','0000-00-00','0000-00-00','0000-00-00'),(5,131,'821.00','2012-09-21 03:25:53','246.30','821.00','0000-00-00','0000-00-00','0000-00-00'),(6,131,'821.00','2012-09-21 03:26:01','246.30','821.00','0000-00-00','0000-00-00','0000-00-00'),(7,131,'821.00','2012-09-21 03:27:47','246.30','821.00','0000-00-00','0000-00-00','0000-00-00'),(8,131,'800.00','2012-09-21 03:28:21','240.00','800.00','0000-00-00','0000-00-00','0000-00-00'),(9,107,'321.00','2012-09-21 03:41:01','96.30','321.00','0000-00-00','0000-00-00','0000-00-00');
+INSERT INTO `orders` VALUES (1,131,'321.00','2012-09-21 06:44:06','96.30','321.00','0000-00-00','0000-00-00','0000-00-00'),(2,131,'500.00','2012-09-22 13:04:02','150.00','500.00','0000-00-00','0000-00-00','0000-00-00');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -256,4 +256,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-09-21 12:10:28
+-- Dump completed on 2012-09-22 23:10:39
